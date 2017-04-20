@@ -1,0 +1,48 @@
+= unsorted link, not yet in the documentation wiki =
+* http://www.kleinwindanlagen.de/Forum/cf3/topic.php?t=3064 - der richtige Generator
+* https://www.mikrocontroller.net/articles/Temperatursensor
+* http://guide.munin-monitoring.org/en/latest/example/index.html
+* console @ pi
+* https://wiki.openwrt.org/toh/raspberry_pi_foundation/raspberry_pi
+* munin farbe: http://munin-monitoring.org/wiki/fieldname.colour
+* munin spike removal: "rrdtool tune <file> --maximum <ds>:<value>"
+ * http://acktomic.com/2007/08/31/removing-spikes-from-rrd-databases/i
+* http://www.raspberrypi-spy.co.uk/2015/10/how-to-autorun-a-python-script-on-boot-using-systemd/ 
+* http://www.mergerandfriends.de/technik/strom-an-bord/batterien/43-batteriecontroller-ein-selbstbauprojekt 
+* http://www.dieelektronikerseite.de/Elements/78xx%20-%20Der,%20der%20die%20Spannung%20regelt.htm - Schaltungen für 5V Spannungsregler 7805 
+* http://electronics.stackexchange.com/questions/75758/replace-78l05-with-7805 
+* https://www.led-tech.de/downloads/smd_tutorial.pdf
+* http://elinux.org/R-Pi_Troubleshooting#Troubleshooting_power_problems
+
+
+== Stromsenke ==
+ * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
+ * http://www.elektronik-kompendium.de/sites/bau/0201291.htm
+ * http://www.rc-network.de/forum/showthread.php/260171-Transistor-f%C3%BCr-Stromsenke
+ * http://www.elektromodellflug.de/oldpage/stromsenke.htm
+ * http://www.fingers-welt.de/phpBB/backup/37/36871_1.htm
+ * Elektor 2/2002 Stromsenke
+ * http://www.amateurfunkbasteln.de/hbridge1/index.html
+
+== forschung ==
+ * http://www.aia.rwth-aachen.de/vlueb/vl/fahrzeug-_und_windradaerodynamik/material/windkraftanlagen_deutsch.pdf
+ * https://wiki.opensourceecology.de/images/6/60/TW-BA_Pitchregelung-VAWT_2015-04-20.pdf
+ * https://www.w-hs.de/kooperieren/forschungsinstitute/westfaelisches-energieinstitut/homepage/forschung-wei/windkraftanlagentechnik/
+ * http://www.dlr.de/at/PortalData/2/Resources/dokumente/at/promotion_meyer.pdf - Rückstromklappen an Flügeln
+ * http://www.knobelsdorff-schule.de/fileadmin/user_upload/download/Schlitzfluegel_Konstruktion_1.pdf - geschlitzter Flügel
+
+== real life ==
+ * https://handybobsolar.wordpress.com/the-rv-battery-charging-puzzle-2/ living on solar power
+ * http://image.informatik.htw-aalen.de/~stegmaier/index.php/Home -- open source suntracker
+ * http://switchdoc.blogspot.de/
+  * http://www.raspberry-pi-geek.com/Archive/2014/04/Sizing-a-wind-turbine-to-power-your-Raspberry-Pi
+ * http://www.fischerpanda.de/downloads/Book-EN-EnergyUnlimited.pdf
+ * http://www.madelectrical.com/electricaltech/howitworks.shtml
+ * http://www.niklasroy.com/workshop/144 -- guter regenschirm windkraft werbeträger
+ * http://arduinoalternatorregulator.blogspot.de/
+
+== Bücher, Hefte ==
+ * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/handbuch-windenergie-technik.htm
+ * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/der-savonius-rotor.htm
+ * https://einfaellestattabfaelle.wordpress.com/einfaelle-statt-abfaelle-heftreihe-windkraft/4-langsamlaufer-windrad/
+
