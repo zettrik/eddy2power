@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="mast.svg"
+   inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient5740"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f4f6ff;stop-opacity:1;"
+         offset="0"
+         id="stop5742" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5740"
+       id="linearGradient5744"
+       x1="129.80458"
+       y1="130.85052"
+       x2="134.09776"
+       y2="130.85052"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5740-3"
+       id="linearGradient5744-6"
+       x1="129.80458"
+       y1="130.85052"
+       x2="134.09776"
+       y2="130.85052"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient5740-3"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f4f6ff;stop-opacity:1;"
+         offset="0"
+         id="stop5742-0" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="149.49505"
+     inkscape:cy="185.44137"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="1002"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#858793;fill-opacity:1;stroke:none"
+       d="m 154.04264,779.24584 -36.61804,48.48161 74.76255,0.25095 z m 0.24476,9.85549 25.77808,32.08137 -50.25556,0.24921 z"
+       id="path4300-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.49843259000000001;fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2985"
+       width="7.1428571"
+       height="692.85712"
+       x="118.57143"
+       y="133.79076"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect2985"
+       id="use2987"
+       transform="translate(65.714286,1.759513e-7)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use2987"
+       id="use3000"
+       transform="translate(-32.85714,-41.428571)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.49843259;fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3002"
+       width="97.14286"
+       height="214.28572"
+       x="341.42856"
+       y="312.36218" />
+    <rect
+       style="opacity:0.49843259000000001;fill:#241c1c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3010"
+       width="9.5964489"
+       height="13.889598"
+       x="117.1777"
+       y="813.96619"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3010"
+       id="use3803"
+       transform="translate(32.829958,-41.163716)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3803"
+       id="use3813"
+       transform="translate(32.829958,41.163716)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.49843259;fill:#241c1c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3010-3"
+       width="9.5964489"
+       height="13.889598"
+       x="117.17769"
+       y="131.98695"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.49843259;fill:#241c1c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3010-1"
+       width="9.5964489"
+       height="13.889598"
+       x="150.00764"
+       y="90.823227"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.49843259;fill:#241c1c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3010-5"
+       width="9.5964489"
+       height="13.889598"
+       x="183.09015"
+       y="132.23949"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient5744);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3865"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,27.855367,18.743886)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 119.198,805.88497 72.47845,-95.71196 -0.25254,-6.31345 -72.47844,94.19672 z"
+       id="path3955"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 118.69292,591.48008 72.47844,95.71196 -0.25254,6.31345 -72.47843,-94.19672 z"
+       id="path3955-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 118.69292,580.11588 72.47845,-95.71196 -0.25254,-6.31345 -72.47844,94.19672 z"
+       id="path3955-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 118.69292,366.4686 72.47844,95.71196 -0.25254,6.31345 -72.47843,-94.19672 z"
+       id="path3955-4-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 118.69292,357.62977 72.47845,-95.71196 -0.25254,-6.31345 -72.47844,94.19672 z"
+       id="path3955-8-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 118.69293,149.03327 72.47844,95.71196 -0.25254,6.31345 -72.47843,-94.19672 z"
+       id="path3955-4-4-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 125.25891,249.65008 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 125.89026,260.25667 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 125.13265,459.25673 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 126.1428,482.2377 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 125.13264,695.63242 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2-2-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 158.72021,705.87986 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6-9-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 125.89025,683.90903 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6-9-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 157.71007,698.55625 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2-2-2-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 159.2253,485.91914 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6-9-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 158.21515,463.69579 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2-2-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 159.2253,260.15005 25.25381,89.39851 0,10.10152 -25.50634,-91.67134 z"
+       id="path3955-4-4-0-1-6-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#888888;fill-opacity:1;stroke:none"
+       d="m 157.20499,252.06883 27.02158,-94.44927 -0.75761,-7.07106 -25.75889,90.66118 z"
+       id="path3955-8-0-2-2-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#858793;fill-opacity:1;stroke:none"
+       d="m 154.30285,84.129915 -37.12839,47.861685 75.48384,0.25759 z m 0.24476,9.855488 25.77808,32.081367 -50.25556,0.24921 z"
+       id="path4300"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3865-5"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,26.923121,19.48119)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-4"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,29.953577,27.562411)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-7"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,45.86348,-5.2675463)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-3"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,57.985311,-5.5200847)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-0"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,75.410442,27.309873)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-1"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,77.683286,19.733729)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient5744-6);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3865-1"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,27.595159,713.85981)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#f4f6ff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-4-7"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,29.693369,722.67834)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-7-7"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,45.603272,689.84838)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-3-9"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,57.725103,689.59584)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-0-8"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,75.150234,722.4258)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3865-5-1-7"
+       sodipodi:cx="131.95117"
+       sodipodi:cy="130.85052"
+       sodipodi:rx="2.1465743"
+       sodipodi:ry="2.2728431"
+       d="m 129.80554,130.78304 a 2.1465743,2.2728431 0 1 1 -1.9e-4,0.007"
+       sodipodi:start="3.1712897"
+       sodipodi:end="9.4513256"
+       sodipodi:open="true"
+       transform="matrix(0.7777797,0,0,0.7777797,77.423078,714.84966)"
+       inkscape:export-filename="/home/kessel/Senselab/Windrad/Baudoku/mast.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>
