@@ -17,14 +17,23 @@
 * https://wiki.freifunk.net/Freifunk-MPP-Tracker
 * http://www.henrykoch.de/en/alternative-energie/eigenbau-vertikalachsen-windrad/dimensionierung-eigenbau-vawt.html
 * getriebe: alpha oder naugart gebrauchtes planetengetriebe i=10
-* https://www.amazon.de/ECO-WORTHY-Linearantrieb-Linearmotor-Verstellantrieb-Lineartechnik/dp/B0171NTOR8/ref=pd_sim_86_6?_encoding=UTF8&psc=1&refRID=4M4X9F91JBJCGNKKZCAX
-* - fuer        . bremse
 * http://www.buch-der-synergie.de/c_neu_html/c_08_01_windenergie_geschichte.htm
 * - ausführliche windntzung geschichte und aktuelle entwicklungen
 * http://www.windenergie-technik-crome.de/
 * VU Meter
  * http://www.learningaboutelectronics.com/Articles/LM3914-dot-bar-display-driver-circuit.php
  * http://www.instructables.com/id/LM3915LM3916-VU-Meter/
+* http://www.ebikeschool.com/how-to-build-a-diy-electric-bicycle-lithium-battery-from-18650-cells/
+* http://www.kleinwindanlagen.de
+* http://www.daswindrad.de
+* http://scoraigwind.com/
+ * http://windempowerment.org/
+* https://energypedia.info/wiki/Portal:Wind
+* http://windaid.org/
+* http://www.gotwind.org/diy/Projects.htm
+* http://windpower.org.za/index.html
+* https://answers.practicalaction.org/
+* http://www.uv.es/navasqui/
 
 == Stromsenke ==
  * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
@@ -34,6 +43,7 @@
  * http://www.fingers-welt.de/phpBB/backup/37/36871_1.htm
  * Elektor 2/2002 Stromsenke
  * http://www.amateurfunkbasteln.de/hbridge1/index.html
+ * http://www.ibiblio.org/kuphaldt/socratic/doc/topical.html
 
 == forschung ==
  * http://www.aia.rwth-aachen.de/vlueb/vl/fahrzeug-_und_windradaerodynamik/material/windkraftanlagen_deutsch.pdf
@@ -41,8 +51,10 @@
  * https://www.w-hs.de/kooperieren/forschungsinstitute/westfaelisches-energieinstitut/homepage/forschung-wei/windkraftanlagentechnik/
  * http://www.dlr.de/at/PortalData/2/Resources/dokumente/at/promotion_meyer.pdf - Rückstromklappen an Flügeln
  * http://www.knobelsdorff-schule.de/fileadmin/user_upload/download/Schlitzfluegel_Konstruktion_1.pdf - geschlitzter Flügel
+ * https://senselab.org/sites/senselab.org/files/Sense.Lab-Machbarkeitsstudie_Niedrigtechnologiewindrad.pdf
 
 == real life ==
+ * http://e-futures.group.shef.ac.uk/publications/pdf/213_post-installation-analysis-of-locally-manufactured-small-wind-turbines-case-studies-in-peru.pdf
  * https://handybobsolar.wordpress.com/the-rv-battery-charging-puzzle-2/ living on solar power
  * http://image.informatik.htw-aalen.de/~stegmaier/index.php/Home -- open source suntracker
  * http://switchdoc.blogspot.de/
@@ -51,6 +63,9 @@
  * http://www.madelectrical.com/electricaltech/howitworks.shtml
  * http://www.niklasroy.com/workshop/144 -- guter regenschirm windkraft werbeträger
  * http://arduinoalternatorregulator.blogspot.de/
+
+=== Flügel Bespannung ===
+ * http://www.aero-hg.de/2besp.htm
 
 == Bücher, Hefte ==
  * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/handbuch-windenergie-technik.htm
