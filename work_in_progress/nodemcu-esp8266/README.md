@@ -41,12 +41,12 @@ DHCP-server is activated.
 
 ## pythonscripts
 
-'''
+```
   import machine
   pin = machine.Pin(2, machine.Pin.OUT)
   pin.on()
   pin.off()
-'''
+```
 
 
 ## handle sd cards
