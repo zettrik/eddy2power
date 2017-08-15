@@ -35,6 +35,16 @@
 * https://answers.practicalaction.org/
 * http://www.uv.es/navasqui/
 
+== Ladereglerüberwachung mit nodemcu ==
+ * hardware:
+  * nodemcu 8€
+  * mcp3208 5€
+  * acs714 8€
+  * sd card breakout 5€
+ * software:
+  * micropython
+  * umqtt, mosquitto
+
 == Stromsenke ==
  * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
  * http://www.elektronik-kompendium.de/sites/bau/0201291.htm
@@ -63,6 +73,8 @@
  * http://www.madelectrical.com/electricaltech/howitworks.shtml
  * http://www.niklasroy.com/workshop/144 -- guter regenschirm windkraft werbeträger
  * http://arduinoalternatorregulator.blogspot.de/
+ * http://lnxpps.de/openwrt/wr841/indexe.html -- openwrt spi
+
 
 === Flügel Bespannung ===
  * http://www.aero-hg.de/2besp.htm
