@@ -35,7 +35,7 @@
 * https://answers.practicalaction.org/
 * http://www.uv.es/navasqui/
 
-== Ladereglerüberwachung mit nodemcu ==
+== use nodemcu to measure charge controller ==
  * hardware:
   * nodemcu 8€
   * mcp3208 5€
@@ -45,7 +45,7 @@
   * micropython
   * umqtt, mosquitto
 
-== Stromsenke ==
+== current sink ==
  * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
  * http://www.elektronik-kompendium.de/sites/bau/0201291.htm
  * http://www.rc-network.de/forum/showthread.php/260171-Transistor-f%C3%BCr-Stromsenke
@@ -55,7 +55,7 @@
  * http://www.amateurfunkbasteln.de/hbridge1/index.html
  * http://www.ibiblio.org/kuphaldt/socratic/doc/topical.html
 
-== forschung ==
+== research ==
  * http://www.aia.rwth-aachen.de/vlueb/vl/fahrzeug-_und_windradaerodynamik/material/windkraftanlagen_deutsch.pdf
  * https://wiki.opensourceecology.de/images/6/60/TW-BA_Pitchregelung-VAWT_2015-04-20.pdf
  * https://www.w-hs.de/kooperieren/forschungsinstitute/westfaelisches-energieinstitut/homepage/forschung-wei/windkraftanlagentechnik/
@@ -76,10 +76,10 @@
  * http://lnxpps.de/openwrt/wr841/indexe.html -- openwrt spi
 
 
-=== Flügel Bespannung ===
+=== wing covering ===
  * http://www.aero-hg.de/2besp.htm
 
-== Bücher, Hefte ==
+== books, magazines (German) ==
  * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/handbuch-windenergie-technik.htm
  * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/der-savonius-rotor.htm
  * https://einfaellestattabfaelle.wordpress.com/einfaelle-statt-abfaelle-heftreihe-windkraft/4-langsamlaufer-windrad/
