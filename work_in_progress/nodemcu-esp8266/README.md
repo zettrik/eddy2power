@@ -48,18 +48,40 @@ DHCP-server is activated.
   pin.off()
 ```
 
-
 ## handle sd cards
-* https://nodemcu.readthedocs.io/en/master/en/sdcard/ -- sd card gpio connection
-* http://www.instructables.com/id/Cheap-DIY-SD-card-breadboard-socket/
- * build with micro sd card adapter
-* https://github.com/lvidarte/esp8266/tree/master/examples/sdcard
+* build with micro sd card adapter
+ * http://www.instructables.com/id/Cheap-DIY-SD-card-breadboard-socket/
+* https://learn.adafruit.com/micropython-hardware-sd-cards/esp8266
+* https://forum.micropython.org/viewtopic.php?f=16&t=3404
+* pin connection:
+ * 3, 6 GND -- GND
+ * 4 VCC -- 3,3V
+ * 1 CS -- D8 (GPIO15)
+ * 2 DIn, MOSI -- D7 (GPIO13)
+ * 5 CLK -- D5 (GPIO14)
+ * 7 DOut, MISO -- D6 (GPIO12)
+* put sdcard.py in micropython environment
+ * https://github.com/micropython/micropython/blob/master/drivers/sdcard/sdcard.py
 
 ## mcp3208
-connect 12 bit a/d 
-* https://github.com/Sillern/esp_mcp3008
-* micropython mcp?
+connect 12 bit a/d chip via spi
+* https://docs.micropython.org/en/latest/pyboard/library/pyb.SPI.html
+ * https://github.com/doceme/py-spidev
+ * https://www.modmypi.com/adafruit-industries/adafruit-raspberry-pi/accessories-515/chips/8-channel-10-bit-analog-to-digital-converter-(mcp3008)
 
+* https://forum.micropython.org/viewtopic.php?t=1959
+* https://github.com/avolkov/rpi-gardening/blob/master/tlug_presentation.md
+* http://hertaville.com/interfacing-an-spi-adc-mcp3008-chip-to-the-raspberry-pi-using-c.html
+* http://www.raspberrypi-spy.co.uk/2013/10/analogue-sensors-on-the-raspberry-pi-using-an-mcp3008/
+ * https://github.com/Sillern/esp_mcp3008 -- C implementation
+* https://github.com/adafruit/Adafruit_Python_MCP3008 -- python bit banging version
+ * https://gist.github.com/ladyada/3151375 
+ * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
+
+
+## battery powered
+* http://pic-microcontroller.com/running-nodemcu-on-a-battery/
+* http://www.instructables.com/id/ESP8266-Li-Ion-Battery-rechargeable-battery-power-/
 
 ----
 # nodemcu firmware
@@ -92,4 +114,4 @@ instead of micropython you can also use lua environment
 * https://github.com/nodemcu
 * https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of tools
 * https://forum.micropython.org/viewtopic.php?t=2240 -- EDIT-DEPLOY-RUN-TEST cycle
-* http://www.instructables.com/id/ESP8266-Li-Ion-Battery-rechargeable-battery-power-/
+* https://github.com/squix78/esp8266-fritzing-parts -- nodemcu fritzig part
