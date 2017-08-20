@@ -53,19 +53,23 @@ DHCP-server is activated.
  * http://www.instructables.com/id/Cheap-DIY-SD-card-breadboard-socket/
 * https://learn.adafruit.com/micropython-hardware-sd-cards/esp8266
 * https://forum.micropython.org/viewtopic.php?f=16&t=3404
-* pin connection:
- * 3, 6 GND -- GND
- * 4 VCC -- 3,3V
- * 1 CS -- D8 (GPIO15)
- * 2 DIn, MOSI -- D7 (GPIO13)
- * 5 CLK -- D5 (GPIO14)
- * 7 DOut, MISO -- D6 (GPIO12)
-* put sdcard.py in micropython environment
+* wired connections:
+| SD Card Pin | NodeMCU Pin (GPIO) |
+| ---- | ---- |
+| 1 CS   | D8 (GPIO15) |
+| 2 DIN, MOSI  | D7 (GPIO13) |
+| 3 GND  | GND |
+| 4 VCC  | 3,3V |
+| 5 CLK  | D5 (GPIO14) |
+| 6 GND  | GND |
+| 7 DOUT, MISO | D6 (GPIO12) |
+* put sdcard.py in micropython environment and use like in sd.py
  * https://github.com/micropython/micropython/blob/master/drivers/sdcard/sdcard.py
 
 ## mcp3208
 connect 12 bit a/d chip via spi
-* https://docs.micropython.org/en/latest/pyboard/library/pyb.SPI.html
+* https://docs.micropython.org/en/latest/esp8266/library/machine.SPI.html
+ * https://docs.micropython.org/en/latest/pyboard/library/pyb.SPI.html
  * https://github.com/doceme/py-spidev
  * https://www.modmypi.com/adafruit-industries/adafruit-raspberry-pi/accessories-515/chips/8-channel-10-bit-analog-to-digital-converter-(mcp3008)
 
@@ -103,11 +107,15 @@ instead of micropython you can also use lua environment
 * nodemcu-uploader -B 9600 terminal
  * firmware before mid 2016 used 9600 instead of 115200 now
 
-### arduino sdk - programming ide
- * http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
+----
+# arduino ide 
+* https://github.com/esp8266/Arduino
+* http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
+* http://www.mikrocontroller-elektronik.de/nodemcu-esp8266-tutorial-wlan-board-arduino-ide/ (German)
 
-### espressif
-* https://frightanic.com/iot/tools-ides-nodemcu/
+## mcp3008
+* https://arduino.stackexchange.com/questions/23507/arduino-esp8266-no-spi-data-coming-from-mcp3008#30152
+* https://github.com/nodesign/MCP3008
 
 ----
 ## links
