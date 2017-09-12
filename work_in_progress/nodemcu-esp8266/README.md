@@ -82,8 +82,11 @@ connect 12 bit a/d chip via spi
  * https://gist.github.com/ladyada/3151375 
  * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
 
-
 ## battery powered
+* http://blog.itechica.com/?p=92 -- current usage in deepsleep
+ * no serial connection
+ * delay(100)
+ * pull down resistance on GPIO0 ?
 * http://pic-microcontroller.com/running-nodemcu-on-a-battery/
 * http://www.instructables.com/id/ESP8266-Li-Ion-Battery-rechargeable-battery-power-/
 
@@ -117,9 +120,13 @@ instead of micropython you can also use lua environment
 * https://arduino.stackexchange.com/questions/23507/arduino-esp8266-no-spi-data-coming-from-mcp3008#30152
 * https://github.com/nodesign/MCP3008
 
+## ads1015
+* https://cmuphyscomp.github.io/60-223-f16/exercises/mobile/NodeMCU-I2C-ADC/index.html
+
 ----
 ## links
 * https://github.com/nodemcu
 * https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of tools
 * https://forum.micropython.org/viewtopic.php?t=2240 -- EDIT-DEPLOY-RUN-TEST cycle
 * https://github.com/squix78/esp8266-fritzing-parts -- nodemcu fritzig part
+* https://github.com/lvidarte/esp8266/wiki -- good starting point as a workshop

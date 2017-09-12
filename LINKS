@@ -1,9 +1,9 @@
-= unsorted link, not yet in the documentation wiki =
+# unsorted links, not yet in the documentation wiki
+* https://github.com/aeroseed/urbolienne -- 
 * http://localelectricity.org/
 * http://www.kleinwindanlagen.de/Forum/cf3/topic.php?t=3064 - der richtige Generator
 * https://www.mikrocontroller.net/articles/Temperatursensor
 * http://guide.munin-monitoring.org/en/latest/example/index.html
-* console @ pi
 * https://wiki.openwrt.org/toh/raspberry_pi_foundation/raspberry_pi
 * munin farbe: http://munin-monitoring.org/wiki/fieldname.colour
 * munin spike removal: "rrdtool tune <file> --maximum <ds>:<value>"
@@ -34,18 +34,31 @@
 * http://windpower.org.za/index.html
 * https://answers.practicalaction.org/
 * http://www.uv.es/navasqui/
+* order PCBs
+ * https://oshpark.com/
 
-== use nodemcu to measure charge controller ==
- * hardware:
-  * nodemcu 8€
-  * mcp3208 5€
-  * acs714 8€
-  * sd card breakout 5€
- * software:
-  * micropython
-  * umqtt, mosquitto
+# use nodemcu or similar to measure charge controller
+* low budget
+* simple pluggable with breakout boards
+take a look at work_in_progress...
+* hardware:
+ * nodemcu 8€
+  * SD card breakout 5€
+  * ADC
+   * mcp3208 5€
+   * oder ads1115 5€
+  * RTC ?€
+ * http://www.watterott.com/de/ESP8266-ESP-12E-Uno-Board 16€
+  * 10 Bit ADC only
+  * SD
+ * http://www.watterott.com/de/Teensy-v35-USB-Board-ARM-Cortex-M4 26€
+  * 25x 13Bit ADC
+  * SD
+  * RTC
+ * acs714 8€
+ * relais 3€
 
-== current sink ==
+# current sink
  * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
  * http://www.elektronik-kompendium.de/sites/bau/0201291.htm
  * http://www.rc-network.de/forum/showthread.php/260171-Transistor-f%C3%BCr-Stromsenke
@@ -55,7 +68,7 @@
  * http://www.amateurfunkbasteln.de/hbridge1/index.html
  * http://www.ibiblio.org/kuphaldt/socratic/doc/topical.html
 
-== research ==
+# research
  * http://www.aia.rwth-aachen.de/vlueb/vl/fahrzeug-_und_windradaerodynamik/material/windkraftanlagen_deutsch.pdf
  * https://wiki.opensourceecology.de/images/6/60/TW-BA_Pitchregelung-VAWT_2015-04-20.pdf
  * https://www.w-hs.de/kooperieren/forschungsinstitute/westfaelisches-energieinstitut/homepage/forschung-wei/windkraftanlagentechnik/
@@ -63,7 +76,8 @@
  * http://www.knobelsdorff-schule.de/fileadmin/user_upload/download/Schlitzfluegel_Konstruktion_1.pdf - geschlitzter Flügel
  * https://senselab.org/sites/senselab.org/files/Sense.Lab-Machbarkeitsstudie_Niedrigtechnologiewindrad.pdf
 
-== real life ==
+# real life
+ * https://www.mdh.se/polopoly_fs/1.85822!/Menu/general/column-content/attachment/Report.pdf
  * http://e-futures.group.shef.ac.uk/publications/pdf/213_post-installation-analysis-of-locally-manufactured-small-wind-turbines-case-studies-in-peru.pdf
  * https://handybobsolar.wordpress.com/the-rv-battery-charging-puzzle-2/ living on solar power
  * http://image.informatik.htw-aalen.de/~stegmaier/index.php/Home -- open source suntracker
@@ -76,10 +90,10 @@
  * http://lnxpps.de/openwrt/wr841/indexe.html -- openwrt spi
 
 
-=== wing covering ===
+# wing covering
  * http://www.aero-hg.de/2besp.htm
 
-== books, magazines (German) ==
+# books, magazines (German)
  * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/handbuch-windenergie-technik.htm
  * https://www.oekobuch.de/buecher/technik-erneuerbare-energie/der-savonius-rotor.htm
  * https://einfaellestattabfaelle.wordpress.com/einfaelle-statt-abfaelle-heftreihe-windkraft/4-langsamlaufer-windrad/
