@@ -124,6 +124,18 @@ instead of micropython you can also use lua environment
 * https://cmuphyscomp.github.io/60-223-f16/exercises/mobile/NodeMCU-I2C-ADC/index.html
 
 ----
+# voltage regulator
+In case the voltage regulator (AMS1117) doesn't fit your needs or was damaged
+you may replace it with:
+* L78L33
+* LP2951 3.3V
+* MCP1700
+
+You could also try to run it directly from a 3.7V li-ion batterie without a voltage
+regulator but with a small voltage dropping diode as described here:
+* https://tinker.yeoman.com.au/2016/05/29/running-nodemcu-on-a-battery-esp8266-low-power-consumption-revisited/
+
+----
 ## links
 * https://github.com/nodemcu
 * https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of tools
