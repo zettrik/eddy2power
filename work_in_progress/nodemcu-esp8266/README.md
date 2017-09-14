@@ -112,6 +112,7 @@ instead of micropython you can also use lua environment
 
 ----
 # arduino ide 
+programming the nodemcu in c++ can be done with the arduino ide
 * https://github.com/esp8266/Arduino
 * http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
 * http://www.mikrocontroller-elektronik.de/nodemcu-esp8266-tutorial-wlan-board-arduino-ide/ (German)
@@ -134,6 +135,10 @@ you may replace it with:
 You could also try to run it directly from a 3.7V li-ion batterie without a voltage
 regulator but with a small voltage dropping diode as described here:
 * https://tinker.yeoman.com.au/2016/05/29/running-nodemcu-on-a-battery-esp8266-low-power-consumption-revisited/
+
+# voltage measurements
+* https://www.re-innovation.co.uk/docs/accurate-voltage-measurment/
+* https://www.re-innovation.co.uk/docs/dc-current-measurement/
 
 ----
 ## links
