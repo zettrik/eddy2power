@@ -124,6 +124,10 @@ programming the nodemcu in c++ can be done with the arduino ide
 ## ads1015
 * https://cmuphyscomp.github.io/60-223-f16/exercises/mobile/NodeMCU-I2C-ADC/index.html
 
+## sc-card
+* http://www.esp8266.com/viewtopic.php?f=32&t=3558&start=12
+* https://github.com/esp8266/Arduino/tree/master/libraries/SD
+
 ----
 # voltage regulator
 In case the voltage regulator (AMS1117) doesn't fit your needs or was damaged
