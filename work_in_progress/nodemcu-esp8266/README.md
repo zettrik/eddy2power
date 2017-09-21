@@ -151,3 +151,4 @@ regulator but with a small voltage dropping diode as described here:
 * https://forum.micropython.org/viewtopic.php?t=2240 -- EDIT-DEPLOY-RUN-TEST cycle
 * https://github.com/squix78/esp8266-fritzing-parts -- nodemcu fritzig part
 * https://github.com/lvidarte/esp8266/wiki -- good starting point as a workshop
+* https://wiki.wemos.cc/tutorials:get_started:revert_to_at_firmware -- reset to defaults
