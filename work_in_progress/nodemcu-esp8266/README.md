@@ -114,6 +114,7 @@ instead of micropython you can also use lua environment
 # arduino ide 
 programming the nodemcu in c++ can be done with the arduino ide
 * https://github.com/esp8266/Arduino
+* https://arduino-esp8266.readthedocs.io/en/latest/
 * http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
 * http://www.mikrocontroller-elektronik.de/nodemcu-esp8266-tutorial-wlan-board-arduino-ide/ (German)
 
@@ -124,9 +125,14 @@ programming the nodemcu in c++ can be done with the arduino ide
 ## ads1015
 * https://cmuphyscomp.github.io/60-223-f16/exercises/mobile/NodeMCU-I2C-ADC/index.html
 
-## sc-card
+## sd-card
 * http://www.esp8266.com/viewtopic.php?f=32&t=3558&start=12
 * https://github.com/esp8266/Arduino/tree/master/libraries/SD
+
+## two devices via SPI
+* https://forum.mysensors.org/topic/6724/solved-nodemcu-esp8266-and-spi-with-nrf24l01-sd-card-module-sanity-errors/3 
+* https://forums.adafruit.com/viewtopic.php?f=25&p=276651
+* https://forum.arduino.cc/index.php?topic=360718.0 
 
 ----
 # voltage regulator
