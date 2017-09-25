@@ -18,7 +18,6 @@
 #include <Wire.h>
 #include "RTClib.h"
 
-
 const char* ssid = "";
 const char* password = "";
 const char* mqtt_server = "172.16.0.1";
@@ -28,6 +27,8 @@ const int button2 = 4; // nodemcu pin: D2
 const int led1 = 16;   // built in LED and D0
 const int led2 =  0;   // nodemcu pin: D4
 const int chipSelect = 15;
+const int rtc_SDA = 5;
+const int rtc_SDC = 4;
 const int sleepTime = 9; // sleep time between readings in seconds
 
 int led1_state = 0;
@@ -40,6 +41,7 @@ int analog_in = 0;
 int analog_in_sum = 0;
 unsigned long now = 0;
 unsigned long before = 0;
+unsigned long rtc_now;
 char mqtt_message[120];
 char sd_data;
 
@@ -50,7 +52,7 @@ PubSubClient client(espClient);
 Sd2Card card;
 SdVolume volume;
 SdFile root;
-RTC_DS1307 rtc;
+RTC_PCF8523 rtc;
 DateTime rtc_time;
 
 void setup() {
@@ -68,8 +70,8 @@ void setup() {
 }
 
 void setup_rtc(){
-  Wire.begin(5, 4);  // SDA, SCL
-    
+  // set pin connection
+  Wire.begin(rtc_SDA, rtc_SDC);
   if (! rtc.begin()) {
     Serial.println("Couldn't find RTC");
   }
@@ -77,26 +79,29 @@ void setup_rtc(){
     Serial.println("RTC connected");
   }
   
-  if (! rtc.isrunning()) {
-    Serial.println("RTC is NOT running!");
+  if (! rtc.initialized()) {
+    Serial.println("RTC is not running!");
     // following line sets the RTC to the date & time this sketch was compiled
     //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
     // This line sets the RTC with an explicit date & time, for example to set
     // January 21, 2014 at 3am you would call:
     //rtc.adjust(DateTime(2017, 9, 25, 21, 49, 0));
   }
-  //rtc.adjust(DateTime(2017, 9, 10, 10, 02, 23));
-  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }  
 
-void print_rtc() {
+unsigned long get_rtc() {
   rtc_time = rtc.now();
-  if (! rtc.isrunning()) {
-    Serial.println("RTC is NOT running!");
+  if (! rtc.initialized()) {
+    Serial.println("RTC is not running!");
+    return 0;
+  }
+  else {
+   return rtc_time.unixtime(); 
   }
   
+  Serial.print("unixtimestamp: ");
   Serial.println(rtc_time.unixtime());
-
+  Serial.print("date: ");
   Serial.print(rtc_time.year(), DEC);
     Serial.print('-');
     Serial.print(rtc_time.month(), DEC);
@@ -220,7 +225,7 @@ void check_battery() {
   
   //analog_in = analogRead(A0);
   analog_in = multiple_read(9);
-  snprintf(mqtt_message, 75, "node1: Input power: %04d, %ld", analog_in, now);
+  snprintf(mqtt_message, 75, "node1: Input power: %04d, %ld, %ld", analog_in, now, return_rtc());
   mqtt_pub("nodes", mqtt_message);
   Serial.println(analog_in);
 
@@ -327,15 +332,17 @@ void loop() {
   button2_state = digitalRead(button2);
   // keep in mind: millis() will start again from 0 about every 50 days
   now = millis();
-
-  print_rtc();
+  Serial.print("uptime: ");
+  Serial.println(now);
+  Serial.print("rtc: ");
+  Serial.println(get_rtc());
   
   if ((unsigned long)(now - before) >= 10000) {
     check_battery();
     before = now;
     if (SD.exists("datalog.txt")) {
       Serial.println("File datalog.txt exists on card");
-      snprintf(mqtt_message, 75, "node1: %01d,%01d,%04d,%ld", button1_state, button2_state, analog_in, now);
+      snprintf(mqtt_message, 75, "node1: %01d,%01d,%04d,%ld,%ld", button1_state, button2_state, analog_in, now, get_rtc());
       mqtt_pub("nodes", mqtt_message);
     }
     //write_sd();

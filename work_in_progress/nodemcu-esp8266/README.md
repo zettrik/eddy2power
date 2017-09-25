@@ -138,6 +138,7 @@ programming the nodemcu in c++ can be done with the arduino ide
 real time clock via i2c
 * https://github.com/adafruit/RTClib
 * http://datasheets.maximintegrated.com/en/ds/DS1307.pdf
+* http://www.alldatasheet.com/view.jsp?Searchword=PCF8523
 
 
 ----
