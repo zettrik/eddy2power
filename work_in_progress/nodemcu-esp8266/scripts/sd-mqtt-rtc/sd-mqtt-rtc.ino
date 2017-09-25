@@ -15,6 +15,9 @@
 #include <PubSubClient.h>
 #include <SPI.h>
 #include <SD.h>
+#include <Wire.h>
+#include "RTClib.h"
+
 
 const char* ssid = "";
 const char* password = "";
@@ -47,6 +50,8 @@ PubSubClient client(espClient);
 Sd2Card card;
 SdVolume volume;
 SdFile root;
+RTC_DS1307 rtc;
+DateTime rtc_time;
 
 void setup() {
   pinMode(led1, OUTPUT);
@@ -59,7 +64,53 @@ void setup() {
   setup_wifi();
   setup_mqtt();
   setup_sd();
+  setup_rtc();
 }
+
+void setup_rtc(){
+  Wire.begin(5, 4);  // SDA, SCL
+    
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+  }
+  else {
+    Serial.println("RTC connected");
+  }
+  
+  if (! rtc.isrunning()) {
+    Serial.println("RTC is NOT running!");
+    // following line sets the RTC to the date & time this sketch was compiled
+    //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    // This line sets the RTC with an explicit date & time, for example to set
+    // January 21, 2014 at 3am you would call:
+    //rtc.adjust(DateTime(2017, 9, 25, 21, 49, 0));
+  }
+  //rtc.adjust(DateTime(2017, 9, 10, 10, 02, 23));
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+}  
+
+void print_rtc() {
+  rtc_time = rtc.now();
+  if (! rtc.isrunning()) {
+    Serial.println("RTC is NOT running!");
+  }
+  
+  Serial.println(rtc_time.unixtime());
+
+  Serial.print(rtc_time.year(), DEC);
+    Serial.print('-');
+    Serial.print(rtc_time.month(), DEC);
+    Serial.print('-');
+    Serial.print(rtc_time.day(), DEC);
+    Serial.print(' ');
+    Serial.print(rtc_time.hour(), DEC);
+    Serial.print(':');
+    Serial.print(rtc_time.minute(), DEC);
+    Serial.print(':');
+    Serial.print(rtc_time.second(), DEC);
+    Serial.println();
+}
+
 
 void setup_sd(){
   if (!SD.begin(chipSelect)) {
@@ -277,6 +328,8 @@ void loop() {
   // keep in mind: millis() will start again from 0 about every 50 days
   now = millis();
 
+  print_rtc();
+  
   if ((unsigned long)(now - before) >= 10000) {
     check_battery();
     before = now;
@@ -306,6 +359,5 @@ void loop() {
   //setup_wifi();
   //todo:  real deep sleep also does not work atm
   //ESP.deepSleep(sleepTime * 1000);
-  
-  ESP.reset();
+  //ESP.reset();
 }

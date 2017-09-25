@@ -129,10 +129,16 @@ programming the nodemcu in c++ can be done with the arduino ide
 * http://www.esp8266.com/viewtopic.php?f=32&t=3558&start=12
 * https://github.com/esp8266/Arduino/tree/master/libraries/SD
 
-## two devices via SPI
+### two devices via SPI
 * https://forum.mysensors.org/topic/6724/solved-nodemcu-esp8266-and-spi-with-nrf24l01-sd-card-module-sanity-errors/3 
 * https://forums.adafruit.com/viewtopic.php?f=25&p=276651
 * https://forum.arduino.cc/index.php?topic=360718.0 
+
+## rtc
+real time clock via i2c
+* https://github.com/adafruit/RTClib
+* http://datasheets.maximintegrated.com/en/ds/DS1307.pdf
+
 
 ----
 # voltage regulator
