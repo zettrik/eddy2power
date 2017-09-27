@@ -29,6 +29,9 @@ so popular yet. So if you need a handy pcb you probably have to make it your own
 * http://forums.parallax.com/discussion/165675/pcbs-for-adc-chips-mcp3208-and-adc124s021
 * order at oshpark, seeedstudio, ...
 
+## other ADC
+* http://www.esp8266-projects.com/2015/04/18-bit-adc-mcp3421-i2c-driver-esp8266.html/
+
 ## SD-Card Reader
 read from and write to sd-cards
 * http://www.esp8266.com/viewtopic.php?f=32&t=3558&start=12

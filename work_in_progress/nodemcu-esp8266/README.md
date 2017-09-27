@@ -35,6 +35,7 @@ you may replace it with:
 * LP2951 3.3V
 * MCP1700
 * L78L33 (max. 100mA which is probably not enough)
+* https://www.tindie.com/products/nEXT_EVO1/30v-synchronous-step-down-dc-dc-converter/
 
 ## Battery Powered
 * http://pic-microcontroller.com/running-nodemcu-on-a-battery/
