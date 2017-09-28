@@ -60,7 +60,7 @@ messages are regulary send to an mqttbroker.
 * https://mosquitto.org/ -- lightweight MQTT broker
 
 # Circuit
-![](node-mcu-wind-power-monitor.png)
+![](nodemcu-wind-power-monitor.png)
 
 ## Fritzing Parts
 * https://github.com/squix78/esp8266-fritzing-parts -- NodeMCU
