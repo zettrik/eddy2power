@@ -55,10 +55,18 @@ in my tests with a 18650 battery but might be dangerous in long term:
 Monitoring of the charge controller is possible via wifi. Status
 messages are regulary send to an mqttbroker.
 
-----
-## links
-* https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of tools
-* https://forum.micropython.org/viewtopic.php?t=2240 -- EDIT-DEPLOY-RUN-TEST cycle
-* https://github.com/squix78/esp8266-fritzing-parts -- nodemcu fritzig part
-* https://github.com/lvidarte/esp8266/wiki -- good starting point as a workshop
-* https://wiki.wemos.cc/tutorials:get_started:revert_to_at_firmware -- reset to defaults
+## MQTT
+* https://github.com/knolleary/pubsubclient -- arduino/esp8266 MQTT client
+* https://mosquitto.org/ -- lightweight MQTT broker
+
+# Circuit
+![](node-mcu-wind-power-monitor.png)
+
+## Fritzing Parts
+* https://github.com/squix78/esp8266-fritzing-parts -- NodeMCU
+* https://github.com/adafruit/Fritzing-Library/tree/master/parts -- MCP3008
+* ![MCP3208 8 channel 12-Bit ADC](MCP3208_8-channel_12-bit_ADC.fzpz) -- MCP3208
+
+# Links
+* https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of development tools
+* https://github.com/lvidarte/esp8266/wiki -- good starting point as a NodeMCU workshop
