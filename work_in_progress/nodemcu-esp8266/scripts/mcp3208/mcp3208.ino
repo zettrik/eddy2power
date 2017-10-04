@@ -4,41 +4,40 @@
   Released into the public domain.
 */
 
-#include <MCP3008.h>
+#include <MCP3208.h>
 
 
 // define pin connections
-#define CS_PIN 12
-#define CLOCK_PIN 9
-#define MOSI_PIN 11
-#define MISO_PIN 10
+#define CS_PIN 14
+#define CLOCK_PIN 15
+#define MOSI_PIN 12
+#define MISO_PIN 13
 
-// put pins inside MCP3008 constructor
-MCP3008 adc(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN);
+ADC_MODE(ADC_VCC); // read ESP voltage instead of analog_in A0, leave A0 unconnected
+MCP3208 adc(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN); // put pins inside MCP3008 constructor
 
 void setup() {
  
  // open serial port
- Serial.begin(9600);
+ Serial.begin(115200);
   
 }
 
 
 void loop() {
   
-  
-  int val = adc.readADC(0); // read Chanel 0 from MCP3008 ADC
-  Serial.println(val);
-  
-  
-  // iterate thru all channels
-  /*
-  for (int i=0; i<8; i++) {
-   int val = adc.readADC(i);
-   Serial.print(val);
-   Serial.print("\t");
-   }
-   Serial.println("");
-  */
-  
+  int val = ESP.getVcc(); // analogRead(A0);
+  Serial.print("internal voltage: ");
+  Serial.println(val/1000);
+
+  // read all MCP3208 channels
+  Serial.println("MCP3208 values:");
+  for (int i=0; i<=7; i++) {
+    val = adc.readADC(i);
+    Serial.print(val);
+    Serial.print("\t");
+  }
+  Serial.println("");
+
+  delay(3000);  
 }
