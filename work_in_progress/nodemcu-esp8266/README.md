@@ -62,6 +62,9 @@ messages are regulary send to an mqttbroker.
 # Circuit
 ![](nodemcu-wind-power-monitor.png)
 
+* https://forum.mysensors.org/topic/6724/solved-nodemcu-esp8266-and-spi-with-nrf24l01-sd-card-module-sanity-errors/3
+* http://www.electronicwings.com/nodemcu/nodemcu-i2c-with-arduino-ide
+
 ## Fritzing Parts
 * https://github.com/squix78/esp8266-fritzing-parts -- NodeMCU
 * https://github.com/adafruit/Fritzing-Library/tree/master/parts -- MCP3008

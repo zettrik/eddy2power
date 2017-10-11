@@ -10,7 +10,7 @@
 #include <SPI.h>
 #include <SD.h>
 
-const int chipSelect = 15;
+const int chipSelect = 15; // D8
 const int led1 = 16;
 
 Sd2Card card;

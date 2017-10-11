@@ -7,11 +7,21 @@
 #include <MCP3208.h>
 
 
+/*
+  For more than one SPI device use the same default pins for clock, mosi and
+  miso. The chip select pin is a single dedicated one for every device.
+
 // define pin connections
 #define CS_PIN 14
 #define CLOCK_PIN 15
 #define MOSI_PIN 12
 #define MISO_PIN 13
+*/
+
+#define CS_PIN 2     // D4
+#define CLOCK_PIN 14 // D5
+#define MOSI_PIN 13  // D7
+#define MISO_PIN 12  // D6
 
 ADC_MODE(ADC_VCC); // read ESP voltage instead of analog_in A0, leave A0 unconnected
 MCP3208 adc(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN); // put pins inside MCP3008 constructor
