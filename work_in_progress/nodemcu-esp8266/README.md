@@ -25,7 +25,7 @@ The NodeMCU is a development board for an ESP8266 chip. It integrates a 3.3V reg
 * NodeMCU 38mA @ 3.3V without wifi
 * SD-Card Adapter 20mA @ 3.3V
 * RTC ?
-* ADC ?
+* ADC/MCP ?
 
 # Power Supply
 How to power the NodeMCU
@@ -57,7 +57,16 @@ messages are regulary send to an mqttbroker.
 
 ## MQTT
 * https://github.com/knolleary/pubsubclient -- arduino/esp8266 MQTT client
-* https://mosquitto.org/ -- lightweight MQTT broker
+* https://pypi.python.org/pypi/paho-mqtt
+* https://mosquitto.org/ -- lightweight MQTT broker (e.g. for wifi access points)
+ * on openwrt/lede: opkg update; opkg install mosquitto-nossl
+ * on debian: apt-get install mosquitto
+ * listens by default on port 1883
+* read mqtt channel on local mqtt broker:
+ * aptitude install mosquitto-clients
+ * mosquitto_sub -d -h broker -t "node/1/power"  # one channel
+ * mosquitto_sub -d -h localhost -t "node/#" # all subchannels
+
 
 # Circuit
 ![](nodemcu-wind-power-monitor.png)
