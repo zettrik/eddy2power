@@ -73,7 +73,7 @@ if __name__ == '__main__':
         p.start() 
 
         # wait max. 20 seconds for incoming mqtt messages
-        p.join(2)
+        p.join(20)
         # afterwards kill process if thread is still active
         if p.is_alive():
             # return zeros?
