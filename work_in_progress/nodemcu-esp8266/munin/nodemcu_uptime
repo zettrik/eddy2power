@@ -3,8 +3,10 @@
 
 import os, re, sys, urllib
 import paho.mqtt.client as mqtt
+import multiprocessing
+import time
 
-mqtt_broker = "172.16.1.112"
+mqtt_broker = "192.168.1.111"
 mqtt_channel = "node/6/uptime"
 
 def on_connect(mqttc, userdata, flags, result_code):
@@ -36,28 +38,50 @@ def on_unsubscribe(mqttc, userdata, mid, granted_qos):
     return()
 
 
-# check pluginname for sensors (node_id)
-sensor = os.environ.get('code', sys.argv[0][(sys.argv[0].rfind('_') + 1):])
+if __name__ == '__main__':
+    # check pluginname for sensors (node_id)
+    sensor = os.environ.get('code', sys.argv[0][(sys.argv[0].rfind('_') + 1):])
 
-if sensor == None:
-    sensor = 1
+    if sensor == None:
+        sensor = 1
 
-if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
-    print("yes")
-elif len(sys.argv) == 2 and sys.argv[1] == "config":
-    print('graph_title NodeMCU Uptime')
-    print('graph_vlabel seconds')
-    print('graph_category sensors')
-    print('graph_args --base 1000 -l 0')
-    print('ad0.label uptime in days')
-    print('ad1.label loop duration')
-else:
-    mqttc = mqtt.Client()
-    mqttc.connect(mqtt_broker, 1883, 60)
-    mqttc.on_connect = on_connect
-    mqttc.on_disconnect = on_disconnect
-    mqttc.on_message = on_message
-    mqttc.on_subscribe = on_subscribe
-    mqttc.on_unsubscribe = on_unsubscribe
-    mqttc.connect(host=mqtt_broker, port=1883)
-    mqttc.loop_forever()
+    if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
+        print("yes")
+    elif len(sys.argv) == 2 and sys.argv[1] == "config":
+        print('graph_title NodeMCU Uptime')
+        print('graph_vlabel seconds')
+        print('graph_category sensors')
+        print('graph_args --base 1000 -l 0')
+        print('ad0.label uptime in days')
+        print('ad1.label loop duration')
+    else:
+        mqttc = mqtt.Client()
+        mqttc.on_connect = on_connect
+        mqttc.on_disconnect = on_disconnect
+        mqttc.on_message = on_message
+        mqttc.on_subscribe = on_subscribe
+        mqttc.on_unsubscribe = on_unsubscribe
+        # connect to mqtt broker
+        try:
+            mqttc.connect(host=mqtt_broker, port=1883)
+        except ConnectionRefusedError:
+            sys.exit(1)
+
+        # start mqtt listening process
+        #mqttc.loop_forever()
+        p = multiprocessing.Process(target=mqttc.loop_forever)
+        p.start() 
+
+        # wait max. 20 seconds for incoming mqtt messages
+        p.join(2)
+        # afterwards kill process if thread is still active
+        if p.is_alive():
+            # return zeros?
+            #print('ad0.value %s' % str(0)
+            #print('ad1.value %s' % str(0)
+            mqttc.on_unsubscribe
+            mqttc.on_disconnect
+            p.terminate()
+            p.join()
+            sys.exit(2)
+
