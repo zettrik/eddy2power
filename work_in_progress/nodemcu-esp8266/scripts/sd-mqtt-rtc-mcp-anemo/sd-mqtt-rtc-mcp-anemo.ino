@@ -28,8 +28,7 @@ const char* password = "";
 // mqtt broker:
 const int node_id = 5;
 const String mqtt_channel = "node/5/";
-//const char* mqtt_server = "192.168.1.111";
-const char* mqtt_server = "172.16.1.112";
+const char* mqtt_server = "192.168.1.111";
 const int mqtt_port = 1883;
 
 // sensor measurement interval

@@ -48,12 +48,13 @@ if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
         print("yes")
     elif len(sys.argv) == 2 and sys.argv[1] == "config":
-        print('graph_title NodeMCU Uptime')
-        print('graph_vlabel seconds')
+        print('graph_title NodeMCU Windspeed')
+        print('graph_vlabel interrupts per second')
         print('graph_category sensors')
         print('graph_args --base 1000 -l 0')
-        print('ad0.label uptime in days')
-        print('ad1.label loop duration')
+        #print('ad0.label loop duration')
+        print('ad1.label D2')
+        #print('ad1.label D4')
     else:
         mqttc = mqtt.Client()
         mqttc.on_connect = on_connect
