@@ -1,3 +1,47 @@
+# Arduino IDE for NodeMCU
+programming the nodemcu also can be done with the arduino ide
+* https://github.com/esp8266/Arduino
+* https://arduino-esp8266.readthedocs.io/en/latest/
+* http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
+* http://www.mikrocontroller-elektronik.de/nodemcu-esp8266-tutorial-wlan-board-arduino-ide/ (German)
+
+
+# Extending IOs
+
+## RTC
+real time clock via i2c
+* https://github.com/adafruit/RTClib
+* http://datasheets.maximintegrated.com/en/ds/DS1307.pdf
+* http://www.alldatasheet.com/view.jsp?Searchword=PCF8523
+
+## Analog Digital Converter ADS1015
+12 Bit 4 chanel ADC via I2C
+* https://cmuphyscomp.github.io/60-223-f16/exercises/mobile/NodeMCU-I2C-ADC/index.html
+
+## Analog Digital Converter MCP3208
+12 Bit 8 Channel ADC via SPI
+* https://arduino.stackexchange.com/questions/23507/arduino-esp8266-no-spi-data-coming-from-mcp3008#30152
+* https://github.com/nodesign/MCP3008
+
+### MCP3208 Dev Board
+The ADS1015 is available as a breakout module. The MCP3208 is not. It seems not
+so popular yet. So if you need a handy pcb you probably have to make it your own.
+* http://forums.parallax.com/discussion/165675/pcbs-for-adc-chips-mcp3208-and-adc124s021
+* order at oshpark, seeedstudio, ...
+
+## other ADC
+* http://www.esp8266-projects.com/2015/04/18-bit-adc-mcp3421-i2c-driver-esp8266.html/
+
+## SD-Card Reader
+read from and write to sd-cards
+* http://www.esp8266.com/viewtopic.php?f=32&t=3558&start=12
+* https://github.com/esp8266/Arduino/tree/master/libraries/SD
+
+## Two Devices Via SPI
+* https://forum.mysensors.org/topic/6724/solved-nodemcu-esp8266-and-spi-with-nrf24l01-sd-card-module-sanity-errors/3 
+* https://forums.adafruit.com/viewtopic.php?f=25&p=276651
+* https://forum.arduino.cc/index.php?topic=360718.0 
+
 # Micropython Firmware
 NodeMCU Board runs fine with micropython. You will have an interactive python
 shell on a microcontroller. :) No more pain in the ass(embler).
@@ -95,4 +139,45 @@ connect a 12 bit a/d chip via spi
 * https://github.com/adafruit/Adafruit_Python_MCP3008 -- python bit banging version
  * https://gist.github.com/ladyada/3151375 
  * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
+
+# NodeMCU Firmware
+usage of lua environment on NodeMCU
+
+## Build Firmware For Your Needs
+* https://nodemcu-build.com/index.php
+
+## Firmware Flashing
+### Install Esptool 
+```
+aptitude install python3-venv
+python3 -m venv testproject
+source testproject/bin/activate
+pip install esptool
+
+## save packagelist for later use with: pip install -r requirements.txt
+pip freeze > requirements.txt
+
+## afterwards...
+deactivate
+```
+
+## Flash Firmware With Esptool
+```
+source testproject/bin/activate
+esptool -cp /dev/ttyUSB0 -cd nodemcu -cb 9600 -cf firmware-integer.bin
+deactivate
+```
+
+## Develop & Upload Lua Scripts
+### Esplorer
+* https://esp8266.ru/esplorer/ -- IDE and upload tool
+ * https://github.com/4refr0nt/luatool -- cli upload
+
+### NodeMCU Uploader
+```
+pip install nodemcu-uploader
+nodemcu-uploader -B 9600 terminal
+```
+* firmware before mid 2016 used 9600 baudrate instead of 115200 now
+
 
