@@ -61,7 +61,6 @@ if __name__ == '__main__':
         print('ad5.label ad5')
         print('ad6.label ad6')
         print('ad7.label ad7')
-        print('ad8.label ad8')
     else:
         mqttc = mqtt.Client()
         mqttc.on_connect = on_connect
