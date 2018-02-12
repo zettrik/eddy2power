@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+'''connect to mqtt broker and follow some channels'''
+
+import os, re, sys, urllib
+import paho.mqtt.client as mqtt
+
+mqtt_broker = "172.16.1.112"
+mqtt_channel = "node/6/mcp3208"
+
+def on_connect(mqttc, userdata, flags, result_code):
+    #print("connected to broker with result code = " + str(result_code))
+    mqttc.subscribe(topic=mqtt_channel, qos=0)
+
+def on_disconnect(mqttc, userdata, result_code):
+    #print("disconnected from broker with result_code = " + str(result_code))
+    return()
+
+def on_message(mqttc, userdata, msg):
+    #print('message received...')
+    #print('topic: ' + msg.topic + ': ' + str(msg.payload))
+    mcp_value = msg.payload.decode('UTF-8')
+    #print(mcp_value)
+    ad = mcp_value.split(",")
+    for i in range(8):
+        print('ad%s.value %s' % (i, str(ad[i])))
+    #print('ad1.value %s' % str(ad1))
+    mqttc.on_unsubscribe
+    mqttc.on_disconnect
+    sys.exit(0)
+
+def on_subscribe(mqttc, userdata, mid, granted_qos):
+    #print('subscribed to channel (qos=' + str(granted_qos) + ')')
+    return()
+
+def on_unsubscribe(mqttc, userdata, mid, granted_qos):
+    #print('unsubscribed from channel (qos=' + str(granted_qos) + ')')
+    return()
+
+
+# check pluginname for sensors (node_id)
+sensor = os.environ.get('code', sys.argv[0][(sys.argv[0].rfind('_') + 1):])
+
+if sensor == None:
+    sensor = 1
+
+if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
+    print("yes")
+elif len(sys.argv) == 2 and sys.argv[1] == "config":
+    print('graph_title mcp3208 readings')
+    print('graph_vlabel A/D values')
+    print('graph_category sensors')
+    print('graph_args --base 1000 -l 0')
+    print('ad0.label light1')
+    print('ad1.label temp1')
+    print('ad2.label light2')
+    print('ad3.label 3')
+    print('ad4.label 4')
+    print('ad5.label 5')
+    print('ad6.label 6')
+    print('ad7.label 7')
+else:
+    mqttc = mqtt.Client()
+    mqttc.connect(mqtt_broker, 1883, 60)
+    mqttc.on_connect = on_connect
+    mqttc.on_disconnect = on_disconnect
+    mqttc.on_message = on_message
+    mqttc.on_subscribe = on_subscribe
+    mqttc.on_unsubscribe = on_unsubscribe
+    mqttc.connect(host=mqtt_broker, port=1883)
+    mqttc.loop_forever()

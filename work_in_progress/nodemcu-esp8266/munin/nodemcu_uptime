@@ -5,7 +5,7 @@ import os, re, sys, urllib
 import paho.mqtt.client as mqtt
 
 mqtt_broker = "172.16.1.112"
-mqtt_channel = "node/+/mcp3208"
+mqtt_channel = "node/6/uptime"
 
 def on_connect(mqttc, userdata, flags, result_code):
     #print("connected to broker with result code = " + str(result_code))
@@ -18,12 +18,11 @@ def on_disconnect(mqttc, userdata, result_code):
 def on_message(mqttc, userdata, msg):
     #print('message received...')
     #print('topic: ' + msg.topic + ': ' + str(msg.payload))
-    mcp_value = msg.payload.decode('UTF-8')
-    #print(mcp_value)
-    ad = mcp_value.split(",")
-    for i in range(8):
-        print('ad%s.value %s' % (i, str(ad[i])))
-    #print('ad1.value %s' % str(ad1))
+    mqtt_string = msg.payload.decode('UTF-8')
+    #print(mqtt_string)
+    ad = mqtt_string.split(",")
+    print('ad0.value %s' % str(int(ad[0])/(1000*60*60*24)))
+    print('ad1.value %s' % str(int(ad[1])/1000))
     mqttc.on_unsubscribe
     mqttc.on_disconnect
     sys.exit(0)
@@ -46,18 +45,12 @@ if sensor == None:
 if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
     print("yes")
 elif len(sys.argv) == 2 and sys.argv[1] == "config":
-    print('graph_title mcp3208 readings')
-    print('graph_vlabel A/D values')
+    print('graph_title NodeMCU Uptime')
+    print('graph_vlabel seconds')
     print('graph_category sensors')
     print('graph_args --base 1000 -l 0')
-    print('ad0.label 0')
-    print('ad1.label 1')
-    print('ad2.label 2')
-    print('ad3.label 3')
-    print('ad4.label 4')
-    print('ad5.label 5')
-    print('ad6.label 6')
-    print('ad7.label 7')
+    print('ad0.label uptime in days')
+    print('ad1.label loop duration')
 else:
     mqttc = mqtt.Client()
     mqttc.connect(mqtt_broker, 1883, 60)
