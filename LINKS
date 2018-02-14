@@ -37,27 +37,6 @@
 * order PCBs
  * https://oshpark.com/
 
-# use nodemcu or similar to measure charge controller
-* low budget
-* simple pluggable with breakout boards
-take a look at work_in_progress...
-* hardware:
- * nodemcu 8€
-  * SD card breakout 5€
-  * ADC
-   * mcp3208 5€
-   * oder ads1115 5€
-  * RTC ?€
- * http://www.watterott.com/de/ESP8266-ESP-12E-Uno-Board 16€
-  * 10 Bit ADC only
-  * SD
- * http://www.watterott.com/de/Teensy-v35-USB-Board-ARM-Cortex-M4 26€
-  * 25x 13Bit ADC
-  * SD
-  * RTC
- * acs714 8€
- * relais 3€
-
 # current sink
  * http://www.ieap.uni-kiel.de/plasma/ag-piel/elektronik/f14_1.jpg
  * http://www.elektronik-kompendium.de/sites/bau/0201291.htm

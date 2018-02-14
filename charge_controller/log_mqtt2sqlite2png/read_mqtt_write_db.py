@@ -38,10 +38,10 @@ import sqlite3
 
 ## mqtt config
 mqtt_broker = "192.168.1.111"
-mqtt_channel = "node/6/mcp3208"
+mqtt_channel = "node/5/mcp3208"
 
 ## sqlite config
-db_name = "nodemcu_mqtt.sqlite"
+db_name = "node5.sqlite"
 table_name = "mcp3208"
 
 

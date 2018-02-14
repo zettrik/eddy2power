@@ -69,7 +69,8 @@ const char* mqtt_server = "192.168.1.111";
 const int mqtt_port = 1883;
 
 /* sleep time between measurements in milliseconds */
-const int sleep_time = 10000;
+const int sleep_time = 5000;
+const int low_voltage = 850;
 
 /* anemometer, rpmometer */
 const byte interrupt_pin1 = 4;  // nodemcu pin: D2
@@ -87,10 +88,16 @@ const int rtc_SDA = 2;          // nodemcu pin:
 const int rtc_SDC = 9;          // nodemcu pin: 
 
 /* mcp3208 SPI connections */
+#define CS_PIN 14               // nodemcu pin: D5
+#define MOSI_PIN 12             // nodemcu pin: D6
+#define MISO_PIN 13             // nodemcu pin: D7
+#define CLOCK_PIN 15            // nodemcu pin: D8
+/*
 #define CS_PIN 15               // nodemcu pin: D8
 #define CLOCK_PIN 14            // nodemcu pin: D5
 #define MOSI_PIN 13             // nodemcu pin: D7
 #define MISO_PIN 12             // nodemcu pin: D6
+*/
 
 /*
  * Don't change after here, unless you know what you do.
@@ -161,7 +168,7 @@ void loop() {
  */
 void check_voltage() {
   Serial.println(mcp[1]);
-  if (mcp[1] > 1588) {
+  if (mcp[1] > low_voltage) {
     Serial.println("high voltage");
     digitalWrite(led2, 1);
   }
@@ -272,6 +279,7 @@ void read_mcp() {
    */
   //Serial.print("MCP3208 values:");
   for (int i=0; i<=7; i++) {
+    //TODO: read several times and interpolate
     mcp[i] = mcp3208.readADC(i);
     //Serial.print(mcp[i]);
     //Serial.print(", ");

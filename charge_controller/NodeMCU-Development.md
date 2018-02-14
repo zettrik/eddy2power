@@ -1,12 +1,9 @@
-# Arduino IDE for NodeMCU
-programming the nodemcu also can be done with the arduino ide
+# NodeMCU with C++ and Arduino IDE
+Advanced programming of the nodemcu can be done with the arduino ide
 * https://github.com/esp8266/Arduino
 * https://arduino-esp8266.readthedocs.io/en/latest/
 * http://www.instructables.com/id/Programming-the-ESP8266-12E-using-Arduino-software/
 * http://www.mikrocontroller-elektronik.de/nodemcu-esp8266-tutorial-wlan-board-arduino-ide/ (German)
-
-
-# Extending IOs
 
 ## RTC
 real time clock via i2c
@@ -42,8 +39,9 @@ read from and write to sd-cards
 * https://forums.adafruit.com/viewtopic.php?f=25&p=276651
 * https://forum.arduino.cc/index.php?topic=360718.0 
 
-# Micropython Firmware
-NodeMCU Board runs fine with micropython. You will have an interactive python
+
+# NodeMCU with Micropython
+The NodeMCU board runs fine with micropython. You will have an interactive python
 shell on a microcontroller. :) No more pain in the ass(embler).
 
 * http://micropython.org/download/
@@ -140,8 +138,9 @@ connect a 12 bit a/d chip via spi
  * https://gist.github.com/ladyada/3151375 
  * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
 
-# NodeMCU Firmware
-usage of lua environment on NodeMCU
+
+# NodeMCU with Lua
+Usage of lua environment on NodeMCU might be an easy starting point.
 
 ## Build Firmware For Your Needs
 * https://nodemcu-build.com/index.php

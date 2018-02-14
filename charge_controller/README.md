@@ -79,6 +79,10 @@ messages are regulary send to an mqttbroker.
 * https://github.com/adafruit/Fritzing-Library/tree/master/parts -- MCP3008
 * ![MCP3208 8 channel 12-Bit ADC](MCP3208_8-channel_12-bit_ADC.fzpz) -- MCP3208
 
+## PCB 
+* http://bwir.de/pcb-platinen-mit-haushaltsmitteln-guenstig-selber-herstellen/ -- self made pcbs
+
 # Links
 * https://frightanic.com/iot/tools-ides-nodemcu/ -- comparison of development tools
 * https://github.com/lvidarte/esp8266/wiki -- good starting point as a NodeMCU workshop
+
