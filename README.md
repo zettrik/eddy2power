@@ -17,3 +17,6 @@ https://systemausfall.org/wikis/howto/Eddy-2-Power (mostly German atm)
 
 ![](photos/schematic_construction_overview.png)
 
+# License
+ * The default license for code is GNU GPL v3
+ * Circuits and Hardware designs are under TAPR Open Hardware License v1.0
