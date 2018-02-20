@@ -24,8 +24,8 @@ The NodeMCU is a development board for an ESP8266 chip. It integrates a 3.3V reg
 * NodeMCU 95mA @ 3.3V with active wifi
 * NodeMCU 38mA @ 3.3V without wifi
 * SD-Card Adapter 20mA @ 3.3V
+* MCP3208 0,5mA @ 3.3V
 * RTC ?
-* ADC/MCP ?
 
 # Power Supply
 How to power the NodeMCU
