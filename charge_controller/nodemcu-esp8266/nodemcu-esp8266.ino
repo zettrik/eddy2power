@@ -54,6 +54,7 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 #include <RTClib.h>
 #include <Adafruit_ADS1015.h>
 #include <MCP3208.h>
+#include <EEPROM.h>
 
 /*
  * Change the following values to fit your setup.
@@ -63,47 +64,42 @@ const char* ssid = "";
 const char* password = "";
 
 /* mqtt broker */
-const int node_id = 5;
-const String mqtt_channel = "node/5/";
+#define NODE_NAME "node6"
+const String mqtt_channel = "node/6/";
 const char* mqtt_server = "192.168.1.111";
 const int mqtt_port = 1883;
 
 /* sleep time between measurements in milliseconds */
 const int sleep_time = 5000;
-const int low_voltage = 850;
+const int low_voltage = 1000;
+int read_repeat = 10; // reread how often for measure interpolation
 
 /* anemometer, rpmometer */
-const byte interrupt_pin1 = 4;  // nodemcu pin: D2
-const byte interrupt_pin2 = 0;  // nodemcu pin: D3
+const byte interrupt_pin1 = 5;  // nodemcu pin: D1
+const byte interrupt_pin2 = 4;  // nodemcu pin: D2
 
 /* output pins e.g. leds and relais */
 const int led1 = 16;            // nodemcu pin: D0 (and built-in LED)
-const int led2 =  5;            // nodemcu pin: D1
+const int switch1 = 0;            // nodemcu pin: D3
+const int switch2 = 2;            // nodemcu pin: D4
 
 /* sd card */
-const int chip_select = 10;     // nodemcu pin: 
+const int chip_select = 10;     // nodemcu pin: SD2
 
 /* real time clock */
-const int rtc_SDA = 2;          // nodemcu pin:
-const int rtc_SDC = 9;          // nodemcu pin: 
+const int rtc_SDA = 10;          // nodemcu pin: SD2
+const int rtc_SDC = 9;          // nodemcu pin: SD3
 
 /* mcp3208 SPI connections */
-#define CS_PIN 14               // nodemcu pin: D5
-#define MOSI_PIN 12             // nodemcu pin: D6
-#define MISO_PIN 13             // nodemcu pin: D7
-#define CLOCK_PIN 15            // nodemcu pin: D8
-/*
-#define CS_PIN 15               // nodemcu pin: D8
-#define CLOCK_PIN 14            // nodemcu pin: D5
-#define MOSI_PIN 13             // nodemcu pin: D7
-#define MISO_PIN 12             // nodemcu pin: D6
-*/
+#define CS_PIN 14               // nodemcu pin: D5 - mcp: CS
+#define MOSI_PIN 12             // nodemcu pin: D6 - mcp: D_in
+#define MISO_PIN 13             // nodemcu pin: D7 - mcp: D_out
+#define CLOCK_PIN 15            // nodemcu pin: D8 - mcp: CLK
 
 /*
  * Don't change after here, unless you know what you do.
  */
 int analog_in = 0;
-int analog_in_sum = 0;
 unsigned long now = 0;
 unsigned long before = 0;
 unsigned long rtc_now;
@@ -114,6 +110,11 @@ int adc0, adc1, adc2, adc3;
 int mcp[8];
 volatile int interruptCounter1 = 0;
 volatile int interruptCounter2 = 0;
+unsigned long wifi_connects = 0;
+unsigned long mqtt_connects = 0;
+unsigned long mqtt_message_counts = 0;
+int switch1_state = 0;
+int switch2_state = 0;
 
 ADC_MODE(ADC_VCC); //read ESP voltage instead of analog_in A0, leave A0 unconnected
 MCP3208 mcp3208(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN);
@@ -132,9 +133,7 @@ Adafruit_ADS1015 ads;
  */
 void setup() {
   pinMode(led1, OUTPUT);
-  pinMode(led2, OUTPUT);
   digitalWrite(led1, 1);
-  digitalWrite(led2, 1);
   Serial.begin(115200);
   setup_wifi();
   setup_mqtt();
@@ -148,38 +147,134 @@ void setup() {
  * main loop
  */
 void loop() {
+  reset_interrupt_counter();
   check_time();
-  read_mcp();
-  check_battery();
-  check_voltage();
-  
-  //read_adc();
-   
-  //Serial.print("rtc: ");
-  //Serial.println(get_rtc());
-
+  check_mcp();
+  check_internal_voltage();
+  check_battery_voltage();
+  check_temperature();
   delay(sleep_time);
   
   check_interrupts();
+  submit_status();
+  submit_mcp();
+  
+  //check_adc();
+  //Serial.print("rtc: ");
+  //Serial.println(get_rtc());
+  /*
+  read_eeprom();
+  clear_eeprom();
+  read_eeprom();
+  write_eeprom();
+  read_eeprom();
+  */
 }
 
 /*
- * switch relais depending on measured voltage
+ * submit internal state via mqtt
+ * fields are:
+ *    time from start in ms, looptime in ms, wifi connection count,
+ *    mqtt connection count, mqtt message count, switch1 status, switch2 status
+ *    interrupt 1 counter, interrupt2 counter
  */
-void check_voltage() {
-  Serial.println(mcp[1]);
-  if (mcp[1] > low_voltage) {
-    Serial.println("high voltage");
-    digitalWrite(led2, 1);
+void submit_status() {
+  snprintf(mqtt_message, 100, "%ld,%ld,%ld,%ld,%ld,%i,%i,%i,%i", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2);
+  mqtt_pub(mqtt_channel + "status", mqtt_message);
+}
+
+/*
+ * switch dumpload relais depending on measured voltage
+ */
+void check_battery_voltage() {
+  //Serial.println(mcp[1]);
+  if (mcp[2] > low_voltage and switch1_state < 1 ) {
+    Serial.println("High voltage, switching dumpload on.");
+    digitalWrite(switch1, 1);
+    switch1_state = 1;
+    snprintf(mqtt_message, 100, "%ld,%i", now, switch1_state);
+    mqtt_pub(mqtt_channel + "switch1", mqtt_message);
   }
-  else {
-    Serial.println("low voltage");
-    digitalWrite(led2, 0);
+  else if (mcp[2] < low_voltage and switch1_state > 0 ) {
+    Serial.println("Low voltage, switching dumpload off.");
+    digitalWrite(switch1, 0);
+    switch1_state = 0;
+    snprintf(mqtt_message, 100, "%ld,%i", now, switch1_state);
+    mqtt_pub(mqtt_channel + "switch1", mqtt_message);
   }
 }
 
 /*
- * Anemometer
+ * react on high temperatures
+ */
+void check_temperature() {
+  //TODO
+}
+
+/*
+ * EEPROM Reading & Writing  
+ */
+void begin_eeprom(){
+  EEPROM.begin(100);
+}
+
+void read_eeprom(){
+  begin_eeprom();
+  int eeprom_address = 0;
+  byte eeprom_value;
+
+  for (int i=1; i<=3; i++) {
+    eeprom_address = i;
+  
+    // read a byte from the current address of the EEPROM
+    eeprom_value = EEPROM.read(eeprom_address);
+    Serial.print("eeprom: ");
+    Serial.print(eeprom_address);
+    Serial.print("\t");
+    Serial.print(eeprom_value, DEC);
+    Serial.println();
+  }
+  end_eeprom();
+}
+
+void clear_eeprom() {
+  begin_eeprom();
+  for (int i = 1; i <= 3; i++){
+    EEPROM.write(i, 0);
+  }
+  end_eeprom();
+}
+
+void write_eeprom() {
+  begin_eeprom();
+  int addr = 1;
+  int val = ESP.getVcc();
+  Serial.print("Vcc as int: ");
+  Serial.println(val);
+  EEPROM.write(addr, lowByte(val));
+  EEPROM.write(addr+1, highByte(val));
+  Serial.print("low byte: ");
+  Serial.println(EEPROM.read(addr));
+  Serial.print("high byte: ");
+  Serial.println(EEPROM.read(addr+1));
+
+  int combined; 
+  combined = highByte(val);              //send x_high to rightmost 8 bits
+  combined = combined<<8;         //shift x_high over to leftmost 8 bits
+  combined |= lowByte(val);                 //logical OR keeps x_high intact in combined and fills in                                                             //rightmost 8 bits
+  Serial.print("recombined: ");
+  Serial.println(combined);
+  end_eeprom();
+}
+
+void end_eeprom() {
+  //EEPROM.commit();  // write changes to flash
+  EEPROM.end();     // commit and release RAM copy of EEPROM content
+}
+
+
+/*
+ * Anemometer; count interrupts in time delta
  */
 void setup_interrupts(){
   pinMode(interrupt_pin1, INPUT_PULLUP);
@@ -188,12 +283,18 @@ void setup_interrupts(){
   attachInterrupt(digitalPinToInterrupt(interrupt_pin2), handle_interrupt2, FALLING);
 }
 
+void reset_interrupt_counter() {
+  interruptCounter1 = 0;
+  interruptCounter2 = 0;
+}
+
 void handle_interrupt1() {
-  digitalWrite(led2, interruptCounter1 % 2);
-  Serial.println(interruptCounter1 % 2);
+  //digitalWrite(led2, interruptCounter1 % 2);
   interruptCounter1++;
+  //Serial.println(interruptCounter1 % 2);
   //Serial.println(interruptCounter1);
 }
+
 void handle_interrupt2() {
   interruptCounter2++;
   //Serial.println(interruptCounter2);
@@ -207,9 +308,6 @@ void check_interrupts(){
   //Serial.println(interruptCounter2);
   snprintf(mqtt_message, 100, "%ld,%i,%i", time_delta, interruptCounter1, interruptCounter2);
   mqtt_pub(mqtt_channel + "interrupts", mqtt_message);
-  // reset counter
-  interruptCounter1 = 0;
-  interruptCounter2 = 0;
 }
 
 /*
@@ -224,12 +322,14 @@ void check_time() {
   }
   time_delta = now - before;
   
+  /*
   Serial.print("uptime: ");
   Serial.println(now);
   Serial.print("time for last loop: ");
   Serial.println(time_delta);
-  snprintf(mqtt_message, 100, "%ld,%ld", now, time_delta);
+  snprintf(mqtt_message, 100, "%ld,%ld,%ld,%ld,%ld", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts);
   mqtt_pub(mqtt_channel + "uptime", mqtt_message);
+  */
 }
 
 /*
@@ -255,7 +355,7 @@ void setup_adc() {
   Serial.println("ADC initialized");
 }
 
-void read_adc() {
+void check_adc() {
   adc0 = ads.readADC_SingleEnded(0);
   adc1 = ads.readADC_SingleEnded(1);
   adc2 = ads.readADC_SingleEnded(2);
@@ -268,9 +368,9 @@ void read_adc() {
 }
 
 /*
- * MCP3208
+ * MCP3208  analog/digital converter
  */
-void read_mcp() {
+void check_mcp() {
   /*
    * The MCP3208 has eight 12bit analog inputs.
    * We are reading them here one after another.
@@ -279,13 +379,39 @@ void read_mcp() {
    */
   //Serial.print("MCP3208 values:");
   for (int i=0; i<=7; i++) {
-    //TODO: read several times and interpolate
-    mcp[i] = mcp3208.readADC(i);
+    mcp[i] = 0;
+    // read several times and interpolate
+    for (int j=0; j<=read_repeat; j++) {
+      mcp[i] += mcp3208.readADC(i);
+      delay(10);
+      //Serial.print(mcp[i]);
+      //Serial.print(", ");
+    }
+    //Serial.print(mcp[i] % read_repeat);
+    // calculate average and eventually round up
+    if ((mcp[i] % read_repeat) >= 5) {
+      mcp[i] /= read_repeat;
+      mcp[i] += 1;
+    }
+    else {
+      mcp[i] /= read_repeat;
+    }
+    //Serial.print(" middle: ");
     //Serial.print(mcp[i]);
-    //Serial.print(", ");
+    //Serial.print(", modulo: ");
+    //Serial.println(mcp[i] % read_repeat);
+    if (mcp[i] > 4096) {
+      Serial.print("MCP3208 channel: ");
+      Serial.print(i);
+      Serial.print(", value: ");
+      Serial.print(mcp[i]);
+      Serial.println(". Values above 4096 are indicating errors with MCP3208.");
+    }
   }
   //Serial.println("");
+}
 
+void submit_mcp() {
   snprintf(mqtt_message, 100, "%04i,%04i,%04i,%04i,%04i,%04i,%04i,%04i", mcp[0],  mcp[1], mcp[2], mcp[3], mcp[4], mcp[5], mcp[6], mcp[7]);
   mqtt_pub(mqtt_channel + "mcp3208", mqtt_message);
 }
@@ -393,7 +519,7 @@ void read_sd() {
 void write_sd() {
   File dataFile = SD.open("datalog.txt", FILE_WRITE);
   if (dataFile) {
-    analog_in = multiple_read(5);
+    analog_in = 5;
     snprintf(mqtt_message, 100, "node writes to sd: %04d,%ld", analog_in, now);
     mqtt_pub("nodes", mqtt_message);
     dataFile.println(analog_in);
@@ -411,6 +537,7 @@ void write_sd() {
 void setup_wifi() {
   WiFi.softAPdisconnect(true);
   WiFi.disconnect(true);
+  WiFi.persistent(false); //  every wifi.begin() writes to flash, this stops it
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("Starting wifi connection");
@@ -426,6 +553,9 @@ void setup_wifi() {
     Serial.print(".");
     if(WiFi.status() == WL_CONNECTED) {
       i = 80;
+      wifi_connects += 1;
+      mqtt_connects = 0;
+      mqtt_message_counts = 0;
     }
   }
   Serial.println("");
@@ -470,16 +600,20 @@ void wifi_awake() {
 void setup_mqtt(){
   client.setServer(mqtt_server, mqtt_port);
 }
-
 void mqtt_reconnect() {
   client.disconnect();
+  mqtt_connect();
+}
+
+void mqtt_connect() {
   Serial.println("Connecting to MQTT broker.");
   // Try three times to reconnect to mqtt broker.
-    //while (!client.connected()) {
+  //while (!client.connected()) {
   for(int i = 0; i <= 2; i++) {
-    if (client.connect("node")) {
+    if (client.connect(NODE_NAME)) {
       Serial.println("Connection to MQTT broker is established.");
-      client.publish("node", "hello!");
+      client.publish("node", "hello.");
+      mqtt_connects += 1;
       client.loop();
       i = 3;
     }
@@ -496,6 +630,8 @@ void mqtt_reconnect() {
     }
   }
   if (!client.connected()) {
+    Serial.println("MQTT broker seems to be not available, will wait some random seconds and restart full wifi stack.");
+    delay(random(1,20)*1000);
     setup_wifi();
   }
 }
@@ -506,53 +642,33 @@ void mqtt_check_connection() {
   
 //void mqtt_pub(char* channel, char* mqtt_message) {
 void mqtt_pub(String channel, char* mqtt_message) {
+  //Serial.print("MQTT connection status: ");
+  //Serial.println(client.connected());
   if (!client.connected()){
-    mqtt_reconnect();
+    mqtt_connect();
   }
   else {
     char mqtt_channel[100];
     channel.toCharArray(mqtt_channel, 100);
-    Serial.print(mqtt_channel);
-    Serial.print(": ");
+    Serial.print("MQTT channel: ");
+    Serial.println(mqtt_channel);
+    Serial.print("MQTT message: ");
     Serial.println(mqtt_message);
     client.publish(mqtt_channel, mqtt_message);
     digitalWrite(led1, 0);
     delay(1);
     digitalWrite(led1, 1);
+    mqtt_message_counts +=1;
   }
 }
 
 /*
- * batteries; power connection of node
+ * batteries; internal power supply
  */
-void check_battery() {
-  /* 
-   * these values were measured with 330kOhm:22kOhm voltage divider at A0
-   * raw input  :: voltage divider :: ADC analog_in
-   * 3.4V   ::  206mV   ::   51
-   * 3.3V   ::  190mV   ::   48
-   * 2.8V   ::  170mv   ::   44
-   * todo: check
-   *    high 3x 4.2V 12.6V
-   *    low 3x 2,8V 8,4V
-  */
-  
-  //analog_in = analogRead(A0);
-  analog_in = multiple_read(9);
+void check_internal_voltage() {
+  analog_in = analogRead(A0);
   //Serial.print("VCC value: ");
   //Serial.println(analog_in);
-  snprintf(mqtt_message, 100, "%04i", analog_in);
-  mqtt_pub(mqtt_channel + "vcc", mqtt_message);
+  //snprintf(mqtt_message, 100, "%04i", analog_in);
+  //mqtt_pub(mqtt_channel + "vcc", mqtt_message);
 }
-
-float multiple_read(int times) {
-  analog_in_sum = 0;
-  for(int i = 0; i < times; i++) {
-    delay(9);
-    //analog_in_sum += analogRead(A0); // one read lasts about 100µs
-    analog_in_sum += ESP.getVcc();
-    }
-  analog_in_sum /= times;
-  return analog_in_sum;
-}
-
