@@ -6,8 +6,9 @@ import paho.mqtt.client as mqtt
 import multiprocessing
 import time
 
+node_id = "5"
 mqtt_broker = "192.168.1.111"
-mqtt_channel = "node/6/uptime"
+mqtt_channel = "node/" + node_id + "/status"
 
 def on_connect(mqttc, userdata, flags, result_code):
     #print("connected to broker with result code = " + str(result_code))
@@ -25,6 +26,10 @@ def on_message(mqttc, userdata, msg):
     ad = mqtt_string.split(",")
     print('ad0.value %s' % str(int(ad[0])/(1000*60*60*24)))
     print('ad1.value %s' % str(int(ad[1])/1000))
+    print('ad2.value %s' % str(int(ad[2])))
+    print('ad3.value %s' % str(int(ad[3])))
+    print('ad4.value %s' % str(int(ad[4])))
+    print('ad5.value %s' % str(int(ad[5])))
     mqttc.on_unsubscribe
     mqttc.on_disconnect
     sys.exit(0)
@@ -48,12 +53,16 @@ if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
         print("yes")
     elif len(sys.argv) == 2 and sys.argv[1] == "config":
-        print('graph_title NodeMCU Uptime')
+        print("graph_title NodeMCU" + node_id +" status")
         print('graph_vlabel seconds')
         print('graph_category sensors')
         print('graph_args --base 1000 -l 0')
         print('ad0.label uptime in days')
         print('ad1.label loop duration')
+        print('ad2.label wifi connects')
+        print('ad3.label mqtt connects')
+        print('ad4.label mqtt messages')
+        print('ad5.label switch1 state')
     else:
         mqttc = mqtt.Client()
         mqttc.on_connect = on_connect

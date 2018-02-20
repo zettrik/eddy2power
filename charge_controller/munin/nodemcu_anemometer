@@ -6,8 +6,9 @@ import paho.mqtt.client as mqtt
 import multiprocessing
 import time
 
+node_id = "5"
 mqtt_broker = "192.168.1.111"
-mqtt_channel = "node/6/interrupts"
+mqtt_channel = "node/" + node_id + "/interrupts"
 
 def on_connect(mqttc, userdata, flags, result_code):
     #print("connected to broker with result code = " + str(result_code))
@@ -23,9 +24,10 @@ def on_message(mqttc, userdata, msg):
     mqtt_string = msg.payload.decode('UTF-8')
     #print(mqtt_string)
     ad = mqtt_string.split(",")
-    #print('ad0.value %s' % str(ad[0]))
-    print('ad1.value %.4f' % (int(ad[1])*1000/int(ad[0])))
-    #print('ad2.value %.4f' % (int(ad[2])*1000/int(ad[0])))
+    print('ad0.value %s' % str(ad[1]))
+    print('ad1.value %s' % str(ad[2]))
+    print('ad2.value %.4f' % (int(ad[1])*1000/int(ad[0])))
+    print('ad3.value %.4f' % (int(ad[2])*1000/int(ad[0])))
     mqttc.on_unsubscribe
     mqttc.on_disconnect
     sys.exit(0)
@@ -48,13 +50,14 @@ if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
         print("yes")
     elif len(sys.argv) == 2 and sys.argv[1] == "config":
-        print('graph_title NodeMCU Windspeed')
-        print('graph_vlabel interrupts per second')
+        print('graph_title NodeMCU" + node_id + " Windspeed')
+        print('graph_vlabel interrupts')
         print('graph_category sensors')
         print('graph_args --base 1000 -l 0')
-        #print('ad0.label loop duration')
-        print('ad1.label D2')
-        #print('ad1.label D4')
+        print('ad0.label per loop 1')
+        print('ad1.label per loop 2')
+        print('ad2.label per second 1')
+        print('ad3.label per second 2')
     else:
         mqttc = mqtt.Client()
         mqttc.on_connect = on_connect

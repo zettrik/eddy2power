@@ -6,8 +6,9 @@ import paho.mqtt.client as mqtt
 import multiprocessing
 import time
 
+node_id = "5"
 mqtt_broker = "192.168.1.111"
-mqtt_channel = "node/6/mcp3208"
+mqtt_channel = "node/" + node_id + "/mcp3208"
 
 def on_connect(mqttc, userdata, flags, result_code):
     #print("connected to broker with result code = " + str(result_code))
@@ -49,13 +50,13 @@ if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == "autoconf":
         print("yes")
     elif len(sys.argv) == 2 and sys.argv[1] == "config":
-        print('graph_title NodeMCU mcp3208')
+        print("graph_title NodeMCU" + node_id + " mcp3208")
         print('graph_vlabel 12 Bit values')
         print('graph_category sensors')
         print('graph_args --base 1000 -l 0')
-        print('ad0.label light1')
-        print('ad1.label temp')
-        print('ad2.label light2')
+        print('ad0.label ad0')
+        print('ad1.label ad1')
+        print('ad2.label ad2')
         print('ad3.label ad3')
         print('ad4.label ad4')
         print('ad5.label ad5')
