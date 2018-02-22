@@ -95,7 +95,7 @@ ampy -p /dev/ttyUSB0 get boot.py
 
 
 ## Example Pythonscript
-```
+```python
 import machine
 pin = machine.Pin(2, machine.Pin.OUT)
 pin.on()
@@ -104,7 +104,7 @@ pin.off()
 
 ## Handle SD Cards
 * build with micro sd card adapter
- * http://www.instructables.com/id/Cheap-DIY-SD-card-breadboard-socket/
+  * http://www.instructables.com/id/Cheap-DIY-SD-card-breadboard-socket/
 * https://learn.adafruit.com/micropython-hardware-sd-cards/esp8266
 * https://forum.micropython.org/viewtopic.php?f=16&t=3404
 * wired connections:
@@ -120,23 +120,23 @@ pin.off()
 | 7 DOUT, MISO | D6 (GPIO12) |
 ```
 * put sdcard.py in micropython environment and use like in sd.py
- * https://github.com/micropython/micropython/blob/master/drivers/sdcard/sdcard.py
+  * https://github.com/micropython/micropython/blob/master/drivers/sdcard/sdcard.py
 
 ## MCP3208
 connect a 12 bit a/d chip via spi
 * https://docs.micropython.org/en/latest/esp8266/library/machine.SPI.html
- * https://docs.micropython.org/en/latest/pyboard/library/pyb.SPI.html
- * https://github.com/doceme/py-spidev
- * https://www.modmypi.com/adafruit-industries/adafruit-raspberry-pi/accessories-515/chips/8-channel-10-bit-analog-to-digital-converter-(mcp3008)
+  * https://docs.micropython.org/en/latest/pyboard/library/pyb.SPI.html
+  * https://github.com/doceme/py-spidev
+  * https://www.modmypi.com/adafruit-industries/adafruit-raspberry-pi/accessories-515/chips/8-channel-10-bit-analog-to-digital-converter-(mcp3008)
 
 * https://forum.micropython.org/viewtopic.php?t=1959
 * https://github.com/avolkov/rpi-gardening/blob/master/tlug_presentation.md
 * http://hertaville.com/interfacing-an-spi-adc-mcp3008-chip-to-the-raspberry-pi-using-c.html
 * http://www.raspberrypi-spy.co.uk/2013/10/analogue-sensors-on-the-raspberry-pi-using-an-mcp3008/
- * https://github.com/Sillern/esp_mcp3008 -- C implementation
+  * https://github.com/Sillern/esp_mcp3008 -- C implementation
 * https://github.com/adafruit/Adafruit_Python_MCP3008 -- python bit banging version
- * https://gist.github.com/ladyada/3151375 
- * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
+  * https://gist.github.com/ladyada/3151375 
+  * https://github.com/micropython/micropython/blob/master/tests/pyb/spi.py
 
 
 # NodeMCU with Lua
@@ -170,7 +170,7 @@ deactivate
 ## Develop & Upload Lua Scripts
 ### Esplorer
 * https://esp8266.ru/esplorer/ -- IDE and upload tool
- * https://github.com/4refr0nt/luatool -- cli upload
+  * https://github.com/4refr0nt/luatool -- cli upload
 
 ### NodeMCU Uploader
 ```

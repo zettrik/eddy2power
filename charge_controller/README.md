@@ -7,13 +7,13 @@ A lot of precautions and hints were also taken from
 The NodeMCU is a development board for an ESP8266 chip. It integrates a 3.3V regulator and USB communication.
 
 ## Enhancements to 555Controller:
- * measuring wind speed and blade rotation
- * data logging to sd-card
- * wireless control and monitoring of the internal state
+* measuring wind speed and blade rotation
+* data logging to sd-card
+* wireless control and monitoring of the internal state
 
 ## On The Downside:
- * way more power consumption for the controller itself
- * more complex setup
+* way more power consumption for the controller itself
+* more complex setup
 
 
 # Voltage Measurements
@@ -38,18 +38,18 @@ you may replace it with:
 * https://www.tindie.com/products/nEXT_EVO1/30v-synchronous-step-down-dc-dc-converter/
 
 ## Battery Powered
+* car battery: Pololu 3.3V Low-Voltage Cutoff S9V11F3S5C3 (up to 16V) 
 * http://pic-microcontroller.com/running-nodemcu-on-a-battery/
 * http://www.instructables.com/id/ESP8266-Li-Ion-Battery-rechargeable-battery-power-/
 * http://blog.itechica.com/?p=92 -- power usage in deepsleep (in German)
- * no serial connection
- * delay(100)
- * pull down resistance on GPIO0 ?
+  * no serial connection
+  * delay(100)
+  * pull down resistance on GPIO0 ?
 
 ## Li-ion Battery
-You could also try to run it directly from a 3.7V li-ion battery without a voltage
-regulator but with a small voltage dropping diode as described here. It worked
-in my tests with a 18650 battery but might be dangerous in long term:
-* https://tinker.yeoman.com.au/2016/05/29/running-nodemcu-on-a-battery-esp8266-low-power-consumption-revisited/
+* li-ion: Pololu Adjustable Step-Up/Step-Down Voltage Regulator S7V8A (2,7 - 11,8V)
+* You could also try to run it directly from a 3.7V li-ion battery without a voltage regulator but with a small voltage dropping diode as described here. It worked in my tests with a 18650 battery but might be dangerous in long term:
+  * https://tinker.yeoman.com.au/2016/05/29/running-nodemcu-on-a-battery-esp8266-low-power-consumption-revisited/
 
 # Wifi
 Monitoring of the charge controller is possible via wifi. Status
@@ -59,13 +59,13 @@ messages are regulary send to an mqttbroker.
 * https://github.com/knolleary/pubsubclient -- arduino/esp8266 MQTT client
 * https://pypi.python.org/pypi/paho-mqtt
 * https://mosquitto.org/ -- lightweight MQTT broker (e.g. for wifi access points)
- * on openwrt/lede: opkg update; opkg install mosquitto-nossl
- * on debian: apt-get install mosquitto
- * listens by default on port 1883
+  * on openwrt/lede: opkg update; opkg install mosquitto-nossl
+  * on debian: apt-get install mosquitto
+  * listens by default on port 1883
 * read mqtt channel on local mqtt broker:
- * aptitude install mosquitto-clients
- * mosquitto_sub -d -h broker -t "node/1/power"  # one channel
- * mosquitto_sub -d -h localhost -t "node/#" # all subchannels
+  * aptitude install mosquitto-clients
+  * mosquitto_sub -d -h broker -t "node/1/power"  # one channel
+  * mosquitto_sub -d -h localhost -t "node/#" # all subchannels
 
 
 # Circuit
