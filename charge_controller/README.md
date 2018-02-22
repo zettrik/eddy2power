@@ -51,6 +51,11 @@ you may replace it with:
 * You could also try to run it directly from a 3.7V li-ion battery without a voltage regulator but with a small voltage dropping diode as described here. It worked in my tests with a 18650 battery but might be dangerous in long term:
   * https://tinker.yeoman.com.au/2016/05/29/running-nodemcu-on-a-battery-esp8266-low-power-consumption-revisited/
 
+## low voltage disconnect
+* http://homecircuits.eu/blog/program-attiny13a-via-arduino-board/
+* http://homecircuits.eu/blog/low-power-picopower-attiny13a/
+* http://homecircuits.eu/blog/arduino-low-voltage-disconnect-circuit/
+
 # Wifi
 Monitoring of the charge controller is possible via wifi. Status
 messages are regulary send to an mqttbroker.
@@ -69,15 +74,13 @@ messages are regulary send to an mqttbroker.
 
 
 # Circuit
-![](nodemcu-wind-power-monitor.png)
-
 * https://forum.mysensors.org/topic/6724/solved-nodemcu-esp8266-and-spi-with-nrf24l01-sd-card-module-sanity-errors/3
 * http://www.electronicwings.com/nodemcu/nodemcu-i2c-with-arduino-ide
 
 ## Fritzing Parts
 * https://github.com/squix78/esp8266-fritzing-parts -- NodeMCU
 * https://github.com/adafruit/Fritzing-Library/tree/master/parts -- MCP3008
-* ![MCP3208 8 channel 12-Bit ADC](MCP3208_8-channel_12-bit_ADC.fzpz) -- MCP3208
+* [MCP3208 8 channel 12-Bit ADC](mcp3208/MCP3208_8-channel_12-bit_ADC.fzpz) -- MCP3208
 
 ## PCB 
 * http://bwir.de/pcb-platinen-mit-haushaltsmitteln-guenstig-selber-herstellen/ -- self made pcbs
