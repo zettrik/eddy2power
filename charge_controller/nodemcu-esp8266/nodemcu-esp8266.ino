@@ -1,49 +1,51 @@
 /*
- * Software for windpower charge controller on NodeMCU
- *   <https://systemausfall.org/wikis/howto/Eddy-2-Power>
- *
- * blinking onboard LED means:
- *   fast  - connecting to wireless network
- *   slow  - connecting to mqtt broker
- *   flash - sending bytes via mqtt
- *   on    - critical power supply
- * 
- * mqtt channel scheme:
- *   /node/X/sensor - publish from node X the value(s) of corresponding
- *                      sensor (e.g. adc, mcp, internal vcc)
- *
- * TODO: wifi sleep mode and deep sleep don't work atm
- *  ESP.deepSleep(sleep_time);
- *  ESP.reset();
+   Software for windpower charge controller on NodeMCU
+     <https://systemausfall.org/wikis/howto/Eddy-2-Power>
+
+   blinking onboard LED means:
+     fast  - connecting to wireless network
+     slow  - connecting to mqtt broker
+     flash - sending bytes via mqtt
+     on    - critical power supply
+
+   mqtt channel scheme:
+     /node/X/<sensor> - publish from node X the value(s) of corresponding
+                        sensor (e.g. adc, mcp, internal vcc)
+     /node/X/status   - node status in csv format (e.g. for munin)
+     /node/X/json     - node status in json format (e.g. for influxdb, grafana)
+
+   TODO: wifi sleep mode and deep sleep don't work atm
+    ESP.deepSleep(sleep_time);
+    ESP.reset();
 */
 /*
-Copyright 2018 Henning Rieger <age@systemausfall.org>
+  Copyright 2018 Henning Rieger <age@systemausfall.org>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+  Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
+  der GNU General Public License, wie von der Free Software Foundation,
+  Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+  veröffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-Dieses Programm wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
+  Dieses Programm wird in der Hoffnung, dass es nützlich sein wird, aber
+  OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+  Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+  Siehe die GNU General Public License für weitere Details.
 
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
 #include <ESP8266WiFi.h>
@@ -57,15 +59,15 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 #include <EEPROM.h>
 
 /*
- * Change the following values to fit your setup.
- */
+   Change the following values to fit your setup.
+*/
 /* wifi */
 const char* ssid = "";
 const char* password = "";
 
 /* mqtt broker */
-#define NODE_NAME "node6"
-const String mqtt_channel = "node/6/";
+#define NODE_NAME "node1"
+const String mqtt_channel = "node/1/";
 const char* mqtt_server = "192.168.1.111";
 const int mqtt_port = 1883;
 
@@ -97,14 +99,14 @@ const int rtc_SDC = 9;          // nodemcu pin: SD3
 #define CLOCK_PIN 15            // nodemcu pin: D8 - mcp: CLK
 
 /*
- * Don't change after here, unless you know what you do.
- */
+   Don't change after here, unless you know what you do.
+*/
 int analog_in = 0;
 unsigned long now = 0;
 unsigned long before = 0;
 unsigned long rtc_now;
 unsigned long time_delta;
-char mqtt_message[120];
+char mqtt_message[1000]; // increase in PubSubClient.h: MQTT_MAX_PACKET_SIZE 1024
 char sd_data;
 int adc0, adc1, adc2, adc3;
 int mcp[8];
@@ -118,7 +120,7 @@ int switch2_state = 0;
 
 ADC_MODE(ADC_VCC); //read ESP voltage instead of analog_in A0, leave A0 unconnected
 MCP3208 mcp3208(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN);
-IPAddress local_ip(127,0,0,0); // will be set via dhcp
+IPAddress local_ip(127, 0, 0, 0); // will be set via dhcp
 WiFiClient espClient;
 PubSubClient client(espClient);
 Sd2Card card;
@@ -129,10 +131,11 @@ DateTime rtc_time;
 Adafruit_ADS1015 ads;
 
 /*
- * bring everything up and running
- */
+   bring everything up and running
+*/
 void setup() {
   pinMode(led1, OUTPUT);
+  pinMode(switch1, OUTPUT);
   digitalWrite(led1, 1);
   Serial.begin(115200);
   setup_wifi();
@@ -144,48 +147,66 @@ void setup() {
 }
 
 /*
- * main loop
- */
+   main loop
+*/
 void loop() {
   reset_interrupt_counter();
   check_time();
   check_mcp();
   check_internal_voltage();
-  check_battery_voltage();
-  check_temperature();
+  //check_battery_voltage();
+  //check_temperature();
+
   delay(sleep_time);
-  
-  check_interrupts();
+
+  submit_interrupts();
   submit_status();
   submit_mcp();
-  
+  //submit_internal_voltage();
+
   //check_adc();
   //Serial.print("rtc: ");
   //Serial.println(get_rtc());
   /*
-  read_eeprom();
-  clear_eeprom();
-  read_eeprom();
-  write_eeprom();
-  read_eeprom();
+    read_eeprom();
+    clear_eeprom();
+    read_eeprom();
+    write_eeprom();
+    read_eeprom();
   */
 }
 
 /*
- * submit internal state via mqtt
- * fields are:
- *    time from start in ms, looptime in ms, wifi connection count,
- *    mqtt connection count, mqtt message count, switch1 status, switch2 status
- *    interrupt 1 counter, interrupt2 counter
+ * pwm tests
  */
-void submit_status() {
-  snprintf(mqtt_message, 100, "%ld,%ld,%ld,%ld,%ld,%i,%i,%i,%i", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2);
-  mqtt_pub(mqtt_channel + "status", mqtt_message);
+void pwm() {
+  int pwm = mcp[2] / 4;
+  analogWrite(switch1, pwm);
+  //Serial.print("pwm: ");
+  //Serial.println(pwm);
 }
 
 /*
- * switch dumpload relais depending on measured voltage
- */
+   submit internal state via mqtt
+   fields are:
+      time from start in ms, looptime in ms, wifi connection count,
+      mqtt connection count, mqtt message count, switch1 status, switch2 status
+      interrupt 1 counter, interrupt2 counter
+*/
+void submit_status() {
+  snprintf(mqtt_message, 110, "%ld,%ld,%ld,%ld,%ld,%i,%i,%i,%i,%i", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2, analog_in);
+  mqtt_pub(mqtt_channel + "status", mqtt_message);
+  // also send in json format for telegraf -> influxdb
+  snprintf(mqtt_message, 1000, "\{\"uptime\":%ld, \"looptime\":%ld, \"wifi\":%ld, \"mqtt1\":%ld, \"mqtt2\": %ld, \"s1\": %i, \"s2\": %i, \"i1\": %i, \"i2\": %i \, \"vcc\": %i \}",
+           now, time_delta, wifi_connects, mqtt_connects,  mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2, analog_in);
+  mqtt_pub(mqtt_channel + "json", mqtt_message);
+  //String pubString = "{ \"runtime\": %ld, \"time_delta\": %ld, \"wifi_connects\": %ld, \"mqtt_connects\": %ld, \"mqtt_messages\": %ld, \"switch1\": %i, \"switch2\": %i, \"interrupts1\": %i, \"interrupts2\": %i }", now, time_delta, wifi_connects, mqtt_connects,  mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2);
+  //pubString.toCharArray(200, pubString.length()+1);
+}
+
+/*
+   switch dumpload relais depending on measured voltage
+*/
 void check_battery_voltage() {
   //Serial.println(mcp[1]);
   if (mcp[2] > low_voltage and switch1_state < 1 ) {
@@ -205,27 +226,27 @@ void check_battery_voltage() {
 }
 
 /*
- * react on high temperatures
- */
+   react on high temperatures
+*/
 void check_temperature() {
   //TODO
 }
 
 /*
- * EEPROM Reading & Writing  
- */
-void begin_eeprom(){
+   EEPROM Reading & Writing
+*/
+void begin_eeprom() {
   EEPROM.begin(100);
 }
 
-void read_eeprom(){
+void read_eeprom() {
   begin_eeprom();
   int eeprom_address = 0;
   byte eeprom_value;
 
-  for (int i=1; i<=3; i++) {
+  for (int i = 1; i <= 3; i++) {
     eeprom_address = i;
-  
+
     // read a byte from the current address of the EEPROM
     eeprom_value = EEPROM.read(eeprom_address);
     Serial.print("eeprom: ");
@@ -239,7 +260,7 @@ void read_eeprom(){
 
 void clear_eeprom() {
   begin_eeprom();
-  for (int i = 1; i <= 3; i++){
+  for (int i = 1; i <= 3; i++) {
     EEPROM.write(i, 0);
   }
   end_eeprom();
@@ -252,15 +273,15 @@ void write_eeprom() {
   Serial.print("Vcc as int: ");
   Serial.println(val);
   EEPROM.write(addr, lowByte(val));
-  EEPROM.write(addr+1, highByte(val));
+  EEPROM.write(addr + 1, highByte(val));
   Serial.print("low byte: ");
   Serial.println(EEPROM.read(addr));
   Serial.print("high byte: ");
-  Serial.println(EEPROM.read(addr+1));
+  Serial.println(EEPROM.read(addr + 1));
 
-  int combined; 
+  int combined;
   combined = highByte(val);              //send x_high to rightmost 8 bits
-  combined = combined<<8;         //shift x_high over to leftmost 8 bits
+  combined = combined << 8;       //shift x_high over to leftmost 8 bits
   combined |= lowByte(val);                 //logical OR keeps x_high intact in combined and fills in                                                             //rightmost 8 bits
   Serial.print("recombined: ");
   Serial.println(combined);
@@ -274,9 +295,9 @@ void end_eeprom() {
 
 
 /*
- * Anemometer; count interrupts in time delta
- */
-void setup_interrupts(){
+   Anemometer; count interrupts in time delta
+*/
+void setup_interrupts() {
   pinMode(interrupt_pin1, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(interrupt_pin1), handle_interrupt1, FALLING);
   pinMode(interrupt_pin2, INPUT_PULLUP);
@@ -300,7 +321,7 @@ void handle_interrupt2() {
   //Serial.println(interruptCounter2);
 }
 
-void check_interrupts(){
+void submit_interrupts() {
   // interrupts since last loop
   //Serial.print("occured interrupts 1 in last loop: ");
   //Serial.println(interruptCounter1);
@@ -311,9 +332,9 @@ void check_interrupts(){
 }
 
 /*
- * handle loop time
- * keep in mind: millis() will start again at 0 about every 50 days
- */
+   handle loop time
+   keep in mind: millis() will start again at 0 about every 50 days
+*/
 void check_time() {
   before = now;
   now = millis();
@@ -321,34 +342,34 @@ void check_time() {
     before = now;
   }
   time_delta = now - before;
-  
+
   /*
-  Serial.print("uptime: ");
-  Serial.println(now);
-  Serial.print("time for last loop: ");
-  Serial.println(time_delta);
-  snprintf(mqtt_message, 100, "%ld,%ld,%ld,%ld,%ld", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts);
-  mqtt_pub(mqtt_channel + "uptime", mqtt_message);
+    Serial.print("uptime: ");
+    Serial.println(now);
+    Serial.print("time for last loop: ");
+    Serial.println(time_delta);
+    snprintf(mqtt_message, 100, "%ld,%ld,%ld,%ld,%ld", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts);
+    mqtt_pub(mqtt_channel + "uptime", mqtt_message);
   */
 }
 
 /*
- * ADC
- */
+   ADC
+*/
 void setup_adc() {
   /*
-   * The ADC input range (or gain) can be changed via the following
-   * functions, but be careful never to exceed VDD +0.3V max, or to
-   * exceed the upper and lower limits if you adjust the input range!
-   * Setting these values incorrectly may destroy your ADC!
-   *                                                                ADS1015  ADS1115
-   *                                                                -------  -------
-   * ads.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
-   * ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-   * ads.setGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
-   * ads.setGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
-   * ads.setGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
-   * ads.setGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
+     The ADC input range (or gain) can be changed via the following
+     functions, but be careful never to exceed VDD +0.3V max, or to
+     exceed the upper and lower limits if you adjust the input range!
+     Setting these values incorrectly may destroy your ADC!
+                                                                    ADS1015  ADS1115
+                                                                    -------  -------
+     ads.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
+     ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
+     ads.setGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
+     ads.setGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
+     ads.setGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
+     ads.setGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
   */
   ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV
   ads.begin();
@@ -368,20 +389,20 @@ void check_adc() {
 }
 
 /*
- * MCP3208  analog/digital converter
- */
+   MCP3208  analog/digital converter
+*/
 void check_mcp() {
   /*
-   * The MCP3208 has eight 12bit analog inputs.
-   * We are reading them here one after another.
-   * valid return values are between 0 - 4095
-   * returns 8191 if no mcp3208 is present
-   */
+     The MCP3208 has eight 12bit analog inputs.
+     We are reading them here one after another.
+     valid return values are between 0 - 4095
+     returns 8191 if no mcp3208 is present
+  */
   //Serial.print("MCP3208 values:");
-  for (int i=0; i<=7; i++) {
+  for (int i = 0; i <= 7; i++) {
     mcp[i] = 0;
     // read several times and interpolate
-    for (int j=0; j<=read_repeat; j++) {
+    for (int j = 0; j <= read_repeat; j++) {
       mcp[i] += mcp3208.readADC(i);
       delay(10);
       //Serial.print(mcp[i]);
@@ -400,6 +421,7 @@ void check_mcp() {
     //Serial.print(mcp[i]);
     //Serial.print(", modulo: ");
     //Serial.println(mcp[i] % read_repeat);
+    /*
     if (mcp[i] > 4096) {
       Serial.print("MCP3208 channel: ");
       Serial.print(i);
@@ -407,6 +429,7 @@ void check_mcp() {
       Serial.print(mcp[i]);
       Serial.println(". Values above 4096 are indicating errors with MCP3208.");
     }
+    */
   }
   //Serial.println("");
 }
@@ -417,9 +440,9 @@ void submit_mcp() {
 }
 
 /*
- * real time clock
- */
-void setup_rtc(){
+   real time clock
+*/
+void setup_rtc() {
   // set pin connection
   Wire.begin(rtc_SDA, rtc_SDC);
   if (! rtc.begin()) {
@@ -428,7 +451,7 @@ void setup_rtc(){
   else {
     Serial.println("RTC connected");
   }
-  
+
   if (! rtc.initialized()) {
     Serial.println("RTC is not running!");
     // following line sets the RTC to the date & time this sketch was compiled
@@ -437,7 +460,7 @@ void setup_rtc(){
     // January 21, 2014 at 3am you would call:
     //rtc.adjust(DateTime(2017, 9, 25, 21, 49, 0));
   }
-}  
+}
 
 unsigned long get_rtc() {
   rtc_time = rtc.now();
@@ -446,36 +469,36 @@ unsigned long get_rtc() {
     return 0;
   }
   else {
-   return rtc_time.unixtime(); 
+    return rtc_time.unixtime();
   }
-  
+
   Serial.print("unixtimestamp: ");
   Serial.println(rtc_time.unixtime());
   Serial.print("date: ");
   Serial.print(rtc_time.year(), DEC);
-    Serial.print('-');
-    Serial.print(rtc_time.month(), DEC);
-    Serial.print('-');
-    Serial.print(rtc_time.day(), DEC);
-    Serial.print(' ');
-    Serial.print(rtc_time.hour(), DEC);
-    Serial.print(':');
-    Serial.print(rtc_time.minute(), DEC);
-    Serial.print(':');
-    Serial.print(rtc_time.second(), DEC);
-    Serial.println();
+  Serial.print('-');
+  Serial.print(rtc_time.month(), DEC);
+  Serial.print('-');
+  Serial.print(rtc_time.day(), DEC);
+  Serial.print(' ');
+  Serial.print(rtc_time.hour(), DEC);
+  Serial.print(':');
+  Serial.print(rtc_time.minute(), DEC);
+  Serial.print(':');
+  Serial.print(rtc_time.second(), DEC);
+  Serial.println();
 }
 
 /*
- * SD Card
- */
-void setup_sd(){
+   SD Card
+*/
+void setup_sd() {
   if (!SD.begin(chip_select)) {
     Serial.println("SD card initialization failed!");
     return;
   }
   Serial.println("SD card initialized");
-  
+
   if (SD.exists("datalog.txt")) {
     Serial.println("Found file datalog.txt on card");
   }
@@ -532,8 +555,8 @@ void write_sd() {
 }
 
 /*
- * wifi
- */
+   wifi
+*/
 void setup_wifi() {
   WiFi.softAPdisconnect(true);
   WiFi.disconnect(true);
@@ -543,7 +566,7 @@ void setup_wifi() {
   Serial.println("Starting wifi connection");
   // Try max. 20 seconds to connect to access point.
   //while(WiFi.status() != WL_CONNECTED) {
-  for(int i = 0; i <= 79; i++) {
+  for (int i = 0; i <= 79; i++) {
     // blink slowly while connecting
     digitalWrite(led1, 0);
     delay(125);
@@ -551,7 +574,7 @@ void setup_wifi() {
     delay(125);
     digitalWrite(led1, 0);
     Serial.print(".");
-    if(WiFi.status() == WL_CONNECTED) {
+    if (WiFi.status() == WL_CONNECTED) {
       i = 80;
       wifi_connects += 1;
       mqtt_connects = 0;
@@ -574,19 +597,19 @@ void setup_wifi() {
 }
 
 /*
- * putting wifi to sleep and waking up again does not work properly with mqtt 
- */
+   putting wifi to sleep and waking up again does not work properly with mqtt
+*/
 void wifi_sleep() {
   Serial.println("Wifi is going to sleep.");
   WiFi.softAPdisconnect();
   WiFi.disconnect();
   WiFi.mode(WIFI_OFF);
-    //WiFi.forceSleepBegin(sleepTime * 1000000L);
+  //WiFi.forceSleepBegin(sleepTime * 1000000L);
   WiFi.forceSleepBegin();
   delay(10);
   //Serial.println(WiFi.status());
   //wdt_reset();
-  
+
 }
 
 void wifi_awake() {
@@ -595,9 +618,9 @@ void wifi_awake() {
 }
 
 /*
- * MQTT
- */
-void setup_mqtt(){
+   MQTT
+*/
+void setup_mqtt() {
   client.setServer(mqtt_server, mqtt_port);
 }
 void mqtt_reconnect() {
@@ -609,7 +632,7 @@ void mqtt_connect() {
   Serial.println("Connecting to MQTT broker.");
   // Try three times to reconnect to mqtt broker.
   //while (!client.connected()) {
-  for(int i = 0; i <= 2; i++) {
+  for (int i = 0; i <= 2; i++) {
     if (client.connect(NODE_NAME)) {
       Serial.println("Connection to MQTT broker is established.");
       client.publish("node", "hello.");
@@ -631,7 +654,7 @@ void mqtt_connect() {
   }
   if (!client.connected()) {
     Serial.println("MQTT broker seems to be not available, will wait some random seconds and restart full wifi stack.");
-    delay(random(1,20)*1000);
+    delay(random(1, 20) * 1000);
     setup_wifi();
   }
 }
@@ -639,12 +662,12 @@ void mqtt_connect() {
 void mqtt_check_connection() {
 
 }
-  
+
 //void mqtt_pub(char* channel, char* mqtt_message) {
 void mqtt_pub(String channel, char* mqtt_message) {
   //Serial.print("MQTT connection status: ");
   //Serial.println(client.connected());
-  if (!client.connected()){
+  if (!client.connected()) {
     mqtt_connect();
   }
   else {
@@ -658,17 +681,33 @@ void mqtt_pub(String channel, char* mqtt_message) {
     digitalWrite(led1, 0);
     delay(1);
     digitalWrite(led1, 1);
-    mqtt_message_counts +=1;
+    mqtt_message_counts += 1;
   }
 }
 
 /*
- * batteries; internal power supply
- */
+   batteries; internal power supply
+*/
 void check_internal_voltage() {
-  analog_in = analogRead(A0);
+   analog_in = 0;
+   for (int j = 0; j <= read_repeat; j++) {
+      analog_in += ESP.getVcc();
+      delay(5);
+    }
+    // calculate average and eventually round up
+    if ((analog_in % read_repeat) >= 5) {
+      analog_in /= read_repeat;
+      analog_in += 1;
+    }
+    else {
+      analog_in /= read_repeat;
+    }
+}
+
+void submit_internal_voltage() {
+  //analog_in = ESP.getVcc();
   //Serial.print("VCC value: ");
   //Serial.println(analog_in);
-  //snprintf(mqtt_message, 100, "%04i", analog_in);
-  //mqtt_pub(mqtt_channel + "vcc", mqtt_message);
+  snprintf(mqtt_message, 100, "%04i", analog_in);
+  mqtt_pub(mqtt_channel + "vcc", mqtt_message);
 }

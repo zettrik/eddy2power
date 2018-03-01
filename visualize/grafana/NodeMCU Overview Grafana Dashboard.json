@@ -60,12 +60,13 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_INFLUXDB}",
-          "fill": 1,
+          "fill": 0,
           "id": 1,
+          "interval": "10s",
           "legend": {
             "alignAsTable": true,
             "avg": true,
-            "current": false,
+            "current": true,
             "max": true,
             "min": true,
             "rightSide": true,
@@ -73,7 +74,7 @@
             "total": false,
             "values": true
           },
-          "lines": false,
+          "lines": true,
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
@@ -88,7 +89,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "node6",
+              "alias": "Node6",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -114,7 +115,7 @@
                 [
                   {
                     "params": [
-                      "t1"
+                      "uptime"
                     ],
                     "type": "field"
                   },
@@ -133,7 +134,7 @@
               ]
             },
             {
-              "alias": "node2",
+              "alias": "Node2",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -159,7 +160,7 @@
                 [
                   {
                     "params": [
-                      "t1"
+                      "uptime"
                     ],
                     "type": "field"
                   },
@@ -178,7 +179,7 @@
               ]
             },
             {
-              "alias": "node1",
+              "alias": "Node1",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -204,7 +205,7 @@
                 [
                   {
                     "params": [
-                      "t1"
+                      "uptime"
                     ],
                     "type": "field"
                   },
@@ -223,7 +224,7 @@
               ]
             },
             {
-              "alias": "node3",
+              "alias": "Node3",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -249,7 +250,7 @@
                 [
                   {
                     "params": [
-                      "t1"
+                      "uptime"
                     ],
                     "type": "field"
                   },
@@ -268,7 +269,7 @@
               ]
             },
             {
-              "alias": "node4",
+              "alias": "Node4",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -294,7 +295,7 @@
                 [
                   {
                     "params": [
-                      "t1"
+                      "uptime"
                     ],
                     "type": "field"
                   },
@@ -356,12 +357,13 @@
           "dashes": false,
           "datasource": "${DS_INFLUXDB}",
           "description": "per connection",
-          "fill": 1,
+          "fill": 0,
           "id": 2,
+          "interval": "10s",
           "legend": {
             "alignAsTable": true,
             "avg": true,
-            "current": false,
+            "current": true,
             "hideEmpty": false,
             "hideZero": false,
             "max": true,
@@ -371,9 +373,10 @@
             "total": false,
             "values": true
           },
-          "lines": false,
+          "lines": true,
           "linewidth": 1,
           "links": [],
+          "minSpan": 10,
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 1,
@@ -665,7 +668,7 @@
           "legend": {
             "alignAsTable": true,
             "avg": true,
-            "current": false,
+            "current": true,
             "max": true,
             "min": true,
             "rightSide": true,
@@ -797,7 +800,7 @@
               "measurement": "mqtt_consumer",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"i1\") / mean(\"t2\") * 1000 FROM \"mqtt_consumer\" WHERE (\"topic\" = 'node/6/json') AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"i1\") / mean(\"looptime\") * 1000 FROM \"mqtt_consumer\" WHERE (\"topic\" = 'node/6/json') AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -902,12 +905,13 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_INFLUXDB}",
-          "fill": 1,
+          "fill": 3,
           "id": 4,
+          "interval": "10s",
           "legend": {
             "alignAsTable": true,
             "avg": true,
-            "current": false,
+            "current": true,
             "hideEmpty": false,
             "hideZero": false,
             "max": true,
@@ -918,7 +922,7 @@
             "values": true
           },
           "lines": false,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -929,7 +933,7 @@
           "spaceLength": 10,
           "span": 12,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
               "alias": "Node6 Interrupts 1",
@@ -994,6 +998,7 @@
                   "type": "fill"
                 }
               ],
+              "hide": true,
               "measurement": "mqtt_consumer",
               "orderByTime": "ASC",
               "policy": "default",
@@ -1078,12 +1083,14 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_INFLUXDB}",
-          "fill": 1,
+          "fill": 0,
           "id": 5,
           "legend": {
             "alignAsTable": true,
             "avg": true,
-            "current": false,
+            "current": true,
+            "hideEmpty": false,
+            "hideZero": false,
             "max": true,
             "min": true,
             "rightSide": true,
@@ -1097,7 +1104,7 @@
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 1,
-          "points": false,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
@@ -1106,12 +1113,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "node1",
+              "alias": "Node1",
               "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
-                    "$__interval"
+                    "10s"
                   ],
                   "type": "time"
                 },
@@ -1157,12 +1164,12 @@
               ]
             },
             {
-              "alias": "node2",
+              "alias": "Node2",
               "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
-                    "$__interval"
+                    "10s"
                   ],
                   "type": "time"
                 },
@@ -1209,12 +1216,12 @@
               ]
             },
             {
-              "alias": "node3",
+              "alias": "Node3",
               "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
-                    "$__interval"
+                    "10s"
                   ],
                   "type": "time"
                 },
@@ -1260,12 +1267,12 @@
               ]
             },
             {
-              "alias": "node4",
+              "alias": "Node4",
               "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
-                    "$__interval"
+                    "10s"
                   ],
                   "type": "time"
                 },
@@ -1309,12 +1316,63 @@
                   "value": "node/4/json"
                 }
               ]
+            },
+            {
+              "alias": "Node6",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "mqtt_consumer",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "vcc"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "topic",
+                  "operator": "=",
+                  "value": "node/6/json"
+                }
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "internal voltage",
+          "title": "Internal Voltage",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1365,8 +1423,8 @@
     "list": []
   },
   "time": {
-    "from": "2018-02-28T15:54:05.004Z",
-    "to": "2018-02-28T17:37:40.760Z"
+    "from": "now-3h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1395,5 +1453,5 @@
   },
   "timezone": "",
   "title": "NodeMCU Overview",
-  "version": 30
+  "version": 34
 }

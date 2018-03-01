@@ -62,6 +62,7 @@ messages are regulary send to an mqttbroker.
 
 ## MQTT
 * https://github.com/knolleary/pubsubclient -- arduino/esp8266 MQTT client
+ * to send data in json format you probably want to increase the max mqtt packet size. adapt to your needs in PubSubClient.h: #define MQTT_MAX_PACKET_SIZE 1024
 * https://pypi.python.org/pypi/paho-mqtt
 * https://mosquitto.org/ -- lightweight MQTT broker (e.g. for wifi access points)
   * on openwrt/lede: opkg update; opkg install mosquitto-nossl
