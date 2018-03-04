@@ -197,11 +197,9 @@ void submit_status() {
   snprintf(mqtt_message, 110, "%ld,%ld,%ld,%ld,%ld,%i,%i,%i,%i,%i", now, time_delta, wifi_connects, mqtt_connects, mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2, analog_in);
   mqtt_pub(mqtt_channel + "status", mqtt_message);
   // also send in json format for telegraf -> influxdb
-  snprintf(mqtt_message, 1000, "\{\"uptime\":%ld, \"looptime\":%ld, \"wifi\":%ld, \"mqtt1\":%ld, \"mqtt2\": %ld, \"s1\": %i, \"s2\": %i, \"i1\": %i, \"i2\": %i \, \"vcc\": %i \}",
+  snprintf(mqtt_message, 1000, "{\"uptime\":%ld, \"looptime\":%ld, \"wifi\":%ld, \"mqtt1\":%ld, \"mqtt2\":%ld, \"s1\":%i, \"s2\":%i, \"i1\":%i, \"i2\":%i \, \"vcc\":%i }",
            now, time_delta, wifi_connects, mqtt_connects,  mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2, analog_in);
   mqtt_pub(mqtt_channel + "json", mqtt_message);
-  //String pubString = "{ \"runtime\": %ld, \"time_delta\": %ld, \"wifi_connects\": %ld, \"mqtt_connects\": %ld, \"mqtt_messages\": %ld, \"switch1\": %i, \"switch2\": %i, \"interrupts1\": %i, \"interrupts2\": %i }", now, time_delta, wifi_connects, mqtt_connects,  mqtt_message_counts, switch1_state, switch2_state, interruptCounter1, interruptCounter2);
-  //pubString.toCharArray(200, pubString.length()+1);
 }
 
 /*
@@ -282,7 +280,7 @@ void write_eeprom() {
   int combined;
   combined = highByte(val);              //send x_high to rightmost 8 bits
   combined = combined << 8;       //shift x_high over to leftmost 8 bits
-  combined |= lowByte(val);                 //logical OR keeps x_high intact in combined and fills in                                                             //rightmost 8 bits
+  combined |= lowByte(val);                 //logical OR keeps x_high intact in combined and fills in rightmost 8 bits
   Serial.print("recombined: ");
   Serial.println(combined);
   end_eeprom();
@@ -402,21 +400,15 @@ void check_mcp() {
   for (int i = 0; i <= 7; i++) {
     mcp[i] = 0;
     // read several times and interpolate
-    for (int j = 0; j <= read_repeat; j++) {
+    for (int j = 0; j < read_repeat; j++) {
       mcp[i] += mcp3208.readADC(i);
       delay(10);
       //Serial.print(mcp[i]);
       //Serial.print(", ");
     }
     //Serial.print(mcp[i] % read_repeat);
-    // calculate average and eventually round up
-    if ((mcp[i] % read_repeat) >= 5) {
-      mcp[i] /= read_repeat;
-      mcp[i] += 1;
-    }
-    else {
-      mcp[i] /= read_repeat;
-    }
+    // calculate average, eventually round up and convert back to int
+    mcp[i] = (int)(mcp[i] / read_repeat + 0.5);
     //Serial.print(" middle: ");
     //Serial.print(mcp[i]);
     //Serial.print(", modulo: ");
@@ -437,6 +429,9 @@ void check_mcp() {
 void submit_mcp() {
   snprintf(mqtt_message, 100, "%04i,%04i,%04i,%04i,%04i,%04i,%04i,%04i", mcp[0],  mcp[1], mcp[2], mcp[3], mcp[4], mcp[5], mcp[6], mcp[7]);
   mqtt_pub(mqtt_channel + "mcp3208", mqtt_message);
+  snprintf(mqtt_message, 1000, "{\"0\":%i, \"1\":%i, \"2\":%i, \"3\":%i, \"4\":%i, \"5\":%i, \"6\":%i, \"7\":%i }",
+           mcp[0],  mcp[1], mcp[2], mcp[3], mcp[4], mcp[5], mcp[6], mcp[7] );
+  mqtt_pub(mqtt_channel + "mcp3208.json", mqtt_message);
 }
 
 /*
@@ -609,7 +604,6 @@ void wifi_sleep() {
   delay(10);
   //Serial.println(WiFi.status());
   //wdt_reset();
-
 }
 
 void wifi_awake() {
@@ -690,7 +684,7 @@ void mqtt_pub(String channel, char* mqtt_message) {
 */
 void check_internal_voltage() {
    analog_in = 0;
-   for (int j = 0; j <= read_repeat; j++) {
+   for (int j = 0; j < read_repeat; j++) {
       analog_in += ESP.getVcc();
       delay(5);
     }
