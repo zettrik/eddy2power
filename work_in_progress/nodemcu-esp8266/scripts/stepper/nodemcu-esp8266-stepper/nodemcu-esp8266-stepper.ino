@@ -57,17 +57,21 @@
 #include <Adafruit_ADS1015.h>
 #include <MCP3208.h>
 #include <EEPROM.h>
-
+#include <Servo.h>
 /*
    Change the following values to fit your setup.
 */
 /* wifi */
-const char* ssid = "";
-const char* password = "";
+//const char* ssid = "";
+//const char* password = "";
+const char* ssid = "Bill Hicks";
+const char* password = "blum3ngi3ss3n";
+//const char* ssid = "BC5";
+//const char* password = "Pass4BC5Komplex";
 
 /* mqtt broker */
-#define NODE_NAME "node5"
-const String mqtt_channel = "node/5/";
+#define NODE_NAME "node1"
+const String mqtt_channel = "node/1/";
 const char* mqtt_server = "192.168.1.111";
 const int mqtt_port = 1883;
 
@@ -97,6 +101,10 @@ const int rtc_SDC = 9;          // nodemcu pin: SD3
 #define MOSI_PIN 12             // nodemcu pin: D6 - mcp: D_in
 #define MISO_PIN 13             // nodemcu pin: D7 - mcp: D_out
 #define CLOCK_PIN 15            // nodemcu pin: D8 - mcp: CLK
+
+/* servo motor */
+#define SERVO_PIN 0          // nodemcu pin: D3
+
 
 /*
    Don't change after here, unless you know what you do.
@@ -129,6 +137,7 @@ SdFile root;
 RTC_PCF8523 rtc;
 DateTime rtc_time;
 Adafruit_ADS1015 ads;
+Servo myservo;
 
 /*
    bring everything up and running
@@ -140,10 +149,11 @@ void setup() {
   Serial.begin(115200);
   setup_wifi();
   setup_mqtt();
-  setup_interrupts();     // for anemometer
+  //setup_interrupts();     // for anemometer
   //setup_adc();
   //setup_sd();
   //setup_rtc();
+  setup_servo();
 }
 
 /*
@@ -156,12 +166,13 @@ void loop() {
   check_internal_voltage();
   //check_battery_voltage();
   //check_temperature();
-
+  run_servo();
+  
   delay(sleep_time);
 
   submit_interrupts();
   submit_status();
-  submit_mcp();
+  //submit_mcp();
   //submit_internal_voltage();
 
   //check_adc();
@@ -174,6 +185,7 @@ void loop() {
     write_eeprom();
     read_eeprom();
   */
+
 }
 
 /*
@@ -706,3 +718,20 @@ void submit_internal_voltage() {
   snprintf(mqtt_message, 100, "%04i", analog_in);
   mqtt_pub(mqtt_channel + "vcc", mqtt_message);
 }
+
+void setup_servo() {
+  myservo.attach(SERVO_PIN);
+}
+void run_servo() {
+  int pos;
+  for(pos = 0; pos <= 90; pos += 1) { // goes from 0 to 90 degrees in steps of 1 degree 
+    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    delay(15);                       // waits 15ms for the servo to reach the position 
+  } 
+  for(pos = 9; pos>=0; pos-=10) {                                
+    myservo.write(pos);
+    delay(15);
+  }
+}
+
+
