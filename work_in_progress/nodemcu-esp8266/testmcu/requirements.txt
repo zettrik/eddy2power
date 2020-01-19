@@ -1,4 +1,4 @@
-ecdsa==0.13
+ecdsa==0.13.3
 esptool==2.0.1
 pkg-resources==0.0.0
 pyaes==1.6.0
